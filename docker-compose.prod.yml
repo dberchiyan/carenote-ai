@@ -1,0 +1,25 @@
+# Production overrides for the demo at https://carenote.osdb.io (osdb-prod).
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# TLS ends at Cloudflare; host nginx (/etc/nginx/conf.d/carenote.conf) proxies port 80 to the web app.
+# PostgreSQL is the carenote-psql container on the same host, reached through host-gateway.
+
+services:
+  api:
+    restart: unless-stopped
+    environment:
+      CARENOTE_ENV: prod
+      CARENOTE_LOG_FORMAT: json
+      CARENOTE_DB_HOST: host.docker.internal
+      CARENOTE_DB_PORT: "5433"
+    ports: !override
+      # Loopback only: the browser reaches the API through the web app's /api proxy.
+      - "127.0.0.1:${API_PORT:-3121}:8000"
+
+  web:
+    restart: unless-stopped
+    ports: !override
+      - "127.0.0.1:${WEB_PORT:-3120}:3000"
+
+  # The HAPI FHIR server only backs `make test-integration`; the demo does not run it.
+  fhir:
+    profiles: ["integration"]

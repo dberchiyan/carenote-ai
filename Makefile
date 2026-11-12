@@ -136,6 +136,25 @@ eval-gate: ## Fail when REPORT regresses >2 p.p. against BASELINE (json reports)
 	$(API) uv run python -m evals.gate --report $(REPORT) --baseline $(BASELINE) \
 		--max-regression $${MAX_REGRESSION:-0.02} $$( [ -n "$(BUDGET)" ] && echo "--max-cost-usd $(BUDGET)" )
 
+# --- Demo at https://carenote.osdb.io (osdb-prod) ---------------------------------
+DEPLOY_HOST ?= osdb-prod
+DEPLOY_DIR ?= /usr/local/apps/carenote
+PROD_COMPOSE = docker compose -f docker-compose.yml -f docker-compose.prod.yml
+
+.PHONY: deploy
+deploy: ## Copy the code to the demo server, rebuild and restart api + web (server .env stays)
+	rsync -az --delete --exclude-from=.deployignore ./ $(DEPLOY_HOST):$(DEPLOY_DIR)/
+	ssh $(DEPLOY_HOST) 'cd $(DEPLOY_DIR) && $(PROD_COMPOSE) up -d --build && docker image prune -f >/dev/null'
+	@ssh $(DEPLOY_HOST) 'for i in $$(seq 1 60); do curl -fs -o /dev/null http://127.0.0.1:3120/healthz && echo "demo is up: https://carenote.osdb.io" && exit 0; sleep 3; done; echo "web did not become healthy"; exit 1'
+
+.PHONY: deploy-logs
+deploy-logs: ## Follow the demo's api and web logs
+	ssh -t $(DEPLOY_HOST) 'cd $(DEPLOY_DIR) && $(PROD_COMPOSE) logs -f --tail=100 api web'
+
+.PHONY: deploy-seed-history
+deploy-seed-history: ## Replace the demo's notes with a fresh week of synthetic ward history
+	ssh $(DEPLOY_HOST) 'cd $(DEPLOY_DIR) && $(PROD_COMPOSE) exec -T api python -m carenote.seed --history'
+
 .PHONY: banner
 banner: ## Re-render docs/banner.png from the running stack (three real screens)
 	cd web && node scripts/banner.mjs ../docs/banner.png

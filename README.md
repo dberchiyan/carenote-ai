@@ -52,6 +52,10 @@ Open **http://localhost:3000** and pick a person. No passwords.
 
 Real LLM extraction: set `CARENOTE_LLM_PROVIDER=anthropic` and `CARENOTE_ANTHROPIC_API_KEY`.
 
+**Live demo:** https://carenote.osdb.io (synthetic data). It runs `docker-compose.prod.yml` on one
+host behind nginx and Cloudflare; `make deploy` ships the working tree there, `make deploy-logs`
+follows the logs and `make deploy-seed-history` resets the demo notes.
+
 ### Three-minute tour
 
 1. **Nora → Record note.** Speak, and the transcript appears before you send: live on the device in

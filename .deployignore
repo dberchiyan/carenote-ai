@@ -1,0 +1,18 @@
+# What `make deploy` does not copy to the server. The server keeps its own .env.
+.git/
+.claude/
+.env
+deploy/
+node_modules/
+.venv/
+.next/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+api/data/
+api/evals/data/audio/
+test-results/
+playwright-report/
+web/AGENTS.md
+docs/
