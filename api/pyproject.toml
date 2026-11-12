@@ -1,0 +1,91 @@
+[project]
+name = "carenote"
+version = "0.1.0"
+description = "CareNote AI — voice documentation for nurses (demo, synthetic data only)"
+authors = [{ name = "Davyd Berchiyan", email = "dberchiyan@osdb.io" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "alembic>=1.20.1",
+    "anthropic>=2.8.0",
+    "en-core-web-sm",
+    "fastapi>=0.162.4",
+    "faster-whisper>=1.2.1",
+    "fhir-resources>=8.3.0",
+    "itsdangerous>=2.2.0",
+    "numpy>=2.4.6",
+    "openai>=3.49.0",
+    "presidio-analyzer>=2.2.366",
+    "presidio-anonymizer>=2.2.366",
+    "psycopg[binary]>=3.3.8",
+    "pydantic-settings>=2.16.2",
+    "python-multipart>=0.0.33",
+    "pyyaml>=6.0.3",
+    "rapidfuzz>=3.14.6",
+    "sqlalchemy>=2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "jiwer>=4.0.0",
+    "mypy>=2.4.1",
+    "pydub>=0.25.1",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "pytest-xdist>=3.8.0",
+    "python-dotenv>=1.2.4",
+    "ruff>=0.17.4",
+    "types-pyyaml>=6.0.12.20261103",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "evals"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "S", "SIM", "RUF", "N", "ASYNC", "PT"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+"migrations/**" = ["N999"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+files = ["src", "tests", "migrations", "evals"]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -m \"not integration\""
+filterwarnings = [
+    "ignore::SyntaxWarning:pydub.*",
+    "ignore:Couldn't find ffmpeg:RuntimeWarning",
+]
+markers = [
+    "integration: needs running services (db, fhir); skipped unless explicitly selected",
+]
+
+[tool.coverage.run]
+source = ["src/carenote"]
+branch = true
+
+[tool.uv.sources]
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+
+[[tool.mypy.overrides]]
+module = ["pydub", "pydub.*", "faster_whisper", "faster_whisper.*"]
+ignore_missing_imports = true
