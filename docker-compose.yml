@@ -1,0 +1,44 @@
+# CareNote AI — app stack. Synthetic data only.
+# PostgreSQL is external (see README → Development): CARENOTE_DB_HOST/PORT in .env.
+name: carenote
+
+services:
+  api:
+    build: ./api
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Runtime uses the restricted role; migrations run as the owner.
+      CARENOTE_DATABASE_URL: postgresql+psycopg://carenote_app:${APP_DB_PASSWORD:?set in .env}@${CARENOTE_DB_HOST:-host.docker.internal}:${CARENOTE_DB_PORT:-5433}/carenote
+      CARENOTE_MIGRATION_DATABASE_URL: postgresql+psycopg://carenote:${POSTGRES_PASSWORD:?set in .env}@${CARENOTE_DB_HOST:-host.docker.internal}:${CARENOTE_DB_PORT:-5433}/carenote
+      CARENOTE_FHIR_BASE_URL: http://fhir:8080/fhir
+      CARENOTE_LOG_FORMAT: ${CARENOTE_LOG_FORMAT:-json}
+    volumes:
+      - audio-data:/data/audio
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Linux hosts; Docker Desktop provides it anyway
+    ports:
+      - "${API_PORT:-8000}:8000"
+
+  web:
+    build: ./web
+    environment:
+      API_INTERNAL_URL: http://api:8000
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  # HAPI FHIR R4 server, used to validate exported bundles ($validate).
+  # The image is distroless (no shell), so readiness is checked from the host: `make wait`.
+  fhir:
+    image: hapiproject/hapi:v8.12.0-2
+    environment:
+      hapi.fhir.fhir_version: R4
+    ports:
+      - "${FHIR_PORT:-8090}:8080"
+
+volumes:
+  audio-data:

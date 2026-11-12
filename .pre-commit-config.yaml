@@ -1,0 +1,33 @@
+# Fast local guards; the full suite stays in `make check`. Install once: `pre-commit install`.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.6
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+        files: ^api/
+      - id: ruff-format
+        files: ^api/
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (api)
+        entry: bash -c 'cd api && uv run mypy'
+        language: system
+        pass_filenames: false
+        files: ^api/.*\.py$
+      - id: web-lint
+        name: eslint + prettier (web)
+        entry: bash -c 'cd web && npx eslint --max-warnings=0 "$@" && npx prettier --check "$@"' --
+        language: system
+        files: ^web/.*\.(ts|tsx)$
+      - id: web-typecheck
+        name: tsc (web)
+        entry: bash -c 'cd web && npx tsc --noEmit'
+        language: system
+        pass_filenames: false
+        files: ^web/.*\.(ts|tsx)$
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.3
+    hooks:
+      - id: gitleaks
