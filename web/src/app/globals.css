@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Components use the semantic utilities below (bg-surface, text-ink-2, border-line,
+ * bg-brand …) so light and dark mode are defined once, here. Text tokens keep WCAG AA contrast on
+ * both `surface` and `canvas`.
+ */
+:root {
+  --canvas: #f3f5f7;
+  --surface: #ffffff;
+  --surface-2: #f7f9fa;
+  --surface-3: #eef2f4;
+  --line: #e3e8ec;
+  --line-strong: #cbd3da;
+  --ink: #0b1a2a;
+  --ink-2: #3f4d5a;
+  --ink-3: #5b6874;
+  --brand: #0b6e69;
+  --brand-strong: #075753;
+  --brand-fg: #ffffff;
+  --brand-soft: #e5f3f1;
+  --brand-text: #0a6560;
+  --brand-ring: #0d9488;
+  --nav: #0a1724;
+  --nav-2: #10202f;
+  --nav-ink: #c6d0da;
+  --nav-ink-strong: #ffffff;
+  --nav-line: #1d2e3f;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 1px 2px rgb(15 23 42 / 0.04), 0 18px 40px -18px rgb(15 23 42 / 0.25);
+
+  /* Chart tokens. Series colour validated with the dataviz palette checks (light + dark). */
+  --chart-series: #0d9488;
+  --chart-surface: #ffffff;
+  --chart-grid: #e8edf1;
+  --chart-axis: #5b6874;
+  --chart-band: #ecfdf5;
+  --chart-warning: #d97706;
+  --chart-critical: #dc2626;
+  --foreground: var(--ink);
+}
+
+/* Dark tokens: the system preference unless the user chose "Light", or the user chose "Dark".
+ * The theme toggle sets `data-theme` on <html> (lib/theme.ts); a boot script applies it before paint. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas: #060c13;
+    --surface: #0c1520;
+    --surface-2: #101b27;
+    --surface-3: #15222f;
+    --line: #1b2836;
+    --line-strong: #2a3a4b;
+    --ink: #e7edf3;
+    --ink-2: #b0bcc8;
+    --ink-3: #8b98a5;
+    --brand: #2cc7b4;
+    --brand-strong: #5eead4;
+    --brand-fg: #03201d;
+    --brand-soft: #0b2a29;
+    --brand-text: #5eead4;
+    --brand-ring: #2dd4bf;
+    --nav: #050a10;
+    --nav-2: #0a131d;
+    --nav-ink: #a9b6c3;
+    --nav-line: #15212d;
+    --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.01);
+    --shadow-lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
+
+    --chart-series: #0f9f92;
+    --chart-surface: #0c1520;
+    --chart-grid: #1b2836;
+    --chart-axis: #8b98a5;
+    --chart-band: #062a26;
+    --chart-warning: #f59e0b;
+    --chart-critical: #f87171;
+  }
+}
+
+:root[data-theme="dark"] {
+  --canvas: #060c13;
+  --surface: #0c1520;
+  --surface-2: #101b27;
+  --surface-3: #15222f;
+  --line: #1b2836;
+  --line-strong: #2a3a4b;
+  --ink: #e7edf3;
+  --ink-2: #b0bcc8;
+  --ink-3: #8b98a5;
+  --brand: #2cc7b4;
+  --brand-strong: #5eead4;
+  --brand-fg: #03201d;
+  --brand-soft: #0b2a29;
+  --brand-text: #5eead4;
+  --brand-ring: #2dd4bf;
+  --nav: #050a10;
+  --nav-2: #0a131d;
+  --nav-ink: #a9b6c3;
+  --nav-line: #15212d;
+  --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.01);
+  --shadow-lift: 0 24px 48px -24px rgb(0 0 0 / 0.7);
+
+  --chart-series: #0f9f92;
+  --chart-surface: #0c1520;
+  --chart-grid: #1b2836;
+  --chart-axis: #8b98a5;
+  --chart-band: #062a26;
+  --chart-warning: #f59e0b;
+  --chart-critical: #f87171;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-text: var(--brand-text);
+  --color-brand-ring: var(--brand-ring);
+  --color-nav: var(--nav);
+  --color-nav-2: var(--nav-2);
+  --color-nav-ink: var(--nav-ink);
+  --color-nav-ink-strong: var(--nav-ink-strong);
+  --color-nav-line: var(--nav-line);
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--brand-ring) 25%, transparent);
+  }
+
+  :focus-visible {
+    outline-color: var(--brand-ring);
+  }
+}
+
+@utility card {
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+@utility field {
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink);
+  transition:
+    border-color 150ms,
+    box-shadow 150ms;
+
+  &::placeholder {
+    color: var(--ink-3);
+  }
+  &:hover:not(:disabled) {
+    border-color: color-mix(in oklab, var(--line-strong) 60%, var(--ink-3));
+  }
+  &:focus-visible {
+    outline: none;
+    border-color: var(--brand-ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-ring) 22%, transparent);
+  }
+  &:disabled {
+    background: var(--surface-2);
+    color: var(--ink-2);
+    cursor: not-allowed;
+  }
+  &:read-only:not(select):not(:disabled) {
+    background: var(--surface-2);
+  }
+  &[aria-invalid="true"] {
+    border-color: #dc2626;
+    &:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in oklab, #dc2626 22%, transparent);
+    }
+  }
+  /* Our own clear button and no native spinners: the controls look the same in every browser. */
+  &[type="search"]::-webkit-search-cancel-button,
+  &[type="search"]::-webkit-search-decoration {
+    appearance: none;
+  }
+  &[type="number"] {
+    appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      appearance: none;
+    }
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 1.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+@utility animate-wave {
+  animation: wave 1.1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Loading placeholder: a soft sweep across a surface tone. */
+@utility skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-3) 0%,
+    color-mix(in oklab, var(--surface-3) 55%, var(--surface)) 50%,
+    var(--surface-3) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes enter {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Page content on route change: a short settle, no fade (contrast checks run during it). */
+@utility animate-enter {
+  animation: enter 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility animate-rise {
+  animation: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-ring,
+  .animate-wave,
+  .animate-rise,
+  .animate-enter,
+  .skeleton {
+    animation: none;
+  }
+}

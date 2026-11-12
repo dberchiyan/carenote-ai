@@ -1,0 +1,30 @@
+import type { components } from "./schema";
+
+type Schemas = components["schemas"];
+
+export type User = Schemas["UserOut"];
+export type Role = User["role"];
+export type Patient = Schemas["PatientOut"];
+export type WardPatient = Schemas["WardPatientOut"];
+export type LatestVital = Schemas["LatestVitalOut"];
+export type Note = Schemas["NoteOut"];
+export type NoteSummary = Schemas["NoteSummaryOut"];
+export type NoteStatus = Note["status"];
+export type Draft = Schemas["DraftOut"];
+export type Extraction = Schemas["Extraction"];
+export type Vital = Schemas["Vital"];
+export type VitalKind = Vital["kind"];
+export type Medication = Schemas["Medication"];
+export type Candidate = Schemas["CandidateOut"];
+export type Flag = Draft["flags"][string];
+export type Observation = Schemas["ObservationOut"];
+export type AuditEvent = Schemas["AuditEventOut"];
+export type LlmMetrics = Schemas["LlmMetricsOut"];
+export type DailyLlmMetrics = Schemas["DailyLlmMetrics"];
+export type RuleSet = Schemas["RuleSet"];
+export type ReviewHint = Schemas["ReviewHint"];
+export type EvalRun = Schemas["EvalRunOut"];
+export type EvalCase = Schemas["EvalCaseOut"];
+export type Corrections = Schemas["CorrectionsOut"];
+export type FieldChange = Schemas["FieldChange"];
+export type { ErrorBody, ErrorCode } from "@/shared/api/errors";

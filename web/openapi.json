@@ -1,0 +1,3488 @@
+{
+  "components": {
+    "schemas": {
+      "AuditEventOut": {
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "actor_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Id"
+          },
+          "actor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Name"
+          },
+          "after": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "After"
+          },
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "before": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Before"
+          },
+          "entity": {
+            "title": "Entity",
+            "type": "string"
+          },
+          "entity_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entity Id"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "at",
+          "actor_id",
+          "actor_name",
+          "action",
+          "entity",
+          "entity_id",
+          "before",
+          "after"
+        ],
+        "title": "AuditEventOut",
+        "type": "object"
+      },
+      "Body_transcribe_preview_notes_transcribe_post": {
+        "properties": {
+          "audio": {
+            "contentMediaType": "application/octet-stream",
+            "description": "The recording, before it is sent as a note",
+            "title": "Audio",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audio"
+        ],
+        "title": "Body_transcribe_preview_notes_transcribe_post",
+        "type": "object"
+      },
+      "Body_upload_note_notes_post": {
+        "properties": {
+          "audio": {
+            "contentMediaType": "application/octet-stream",
+            "description": "WebM, WAV, MP3 or M4A; max 2 minutes",
+            "title": "Audio",
+            "type": "string"
+          },
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          },
+          "transcript": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "On-device live transcript reviewed by the nurse; skips transcription.",
+            "title": "Transcript"
+          }
+        },
+        "required": [
+          "audio"
+        ],
+        "title": "Body_upload_note_notes_post",
+        "type": "object"
+      },
+      "CandidateOut": {
+        "properties": {
+          "family_name": {
+            "title": "Family Name",
+            "type": "string"
+          },
+          "given_name": {
+            "title": "Given Name",
+            "type": "string"
+          },
+          "patient_id": {
+            "format": "uuid",
+            "title": "Patient Id",
+            "type": "string"
+          },
+          "room": {
+            "title": "Room",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "patient_id",
+          "given_name",
+          "family_name",
+          "room",
+          "score"
+        ],
+        "title": "CandidateOut",
+        "type": "object"
+      },
+      "ConfirmIn": {
+        "properties": {
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          }
+        },
+        "title": "ConfirmIn",
+        "type": "object"
+      },
+      "CorrectedNoteOut": {
+        "properties": {
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/FieldChange"
+            },
+            "title": "Changes",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "note_id": {
+            "title": "Note Id",
+            "type": "string"
+          },
+          "redacted_transcript": {
+            "title": "Redacted Transcript",
+            "type": "string"
+          }
+        },
+        "required": [
+          "note_id",
+          "created_at",
+          "model",
+          "redacted_transcript",
+          "changes"
+        ],
+        "title": "CorrectedNoteOut",
+        "type": "object"
+      },
+      "CorrectionsOut": {
+        "properties": {
+          "by_field": {
+            "items": {
+              "$ref": "#/components/schemas/FieldStatsOut"
+            },
+            "title": "By Field",
+            "type": "array"
+          },
+          "confirmed_notes": {
+            "title": "Confirmed Notes",
+            "type": "integer"
+          },
+          "days": {
+            "title": "Days",
+            "type": "integer"
+          },
+          "edit_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edit Rate"
+          },
+          "edited_notes": {
+            "title": "Edited Notes",
+            "type": "integer"
+          },
+          "recent": {
+            "items": {
+              "$ref": "#/components/schemas/CorrectedNoteOut"
+            },
+            "title": "Recent",
+            "type": "array"
+          },
+          "ward": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ward"
+          }
+        },
+        "required": [
+          "days",
+          "ward",
+          "confirmed_notes",
+          "edited_notes",
+          "edit_rate",
+          "by_field",
+          "recent"
+        ],
+        "title": "CorrectionsOut",
+        "type": "object"
+      },
+      "DailyLlmMetrics": {
+        "properties": {
+          "avg_latency_ms": {
+            "title": "Avg Latency Ms",
+            "type": "number"
+          },
+          "cost_usd": {
+            "title": "Cost Usd",
+            "type": "number"
+          },
+          "day": {
+            "format": "date",
+            "title": "Day",
+            "type": "string"
+          },
+          "extractions": {
+            "title": "Extractions",
+            "type": "integer"
+          },
+          "input_tokens": {
+            "title": "Input Tokens",
+            "type": "integer"
+          },
+          "max_latency_ms": {
+            "title": "Max Latency Ms",
+            "type": "integer"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "output_tokens": {
+            "title": "Output Tokens",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "day",
+          "model",
+          "extractions",
+          "input_tokens",
+          "output_tokens",
+          "cost_usd",
+          "avg_latency_ms",
+          "max_latency_ms"
+        ],
+        "title": "DailyLlmMetrics",
+        "type": "object"
+      },
+      "DemoLoginIn": {
+        "properties": {
+          "username": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "username"
+        ],
+        "title": "DemoLoginIn",
+        "type": "object"
+      },
+      "DraftOut": {
+        "properties": {
+          "cost_usd": {
+            "title": "Cost Usd",
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "flags": {
+            "additionalProperties": {
+              "enum": [
+                "normal",
+                "warning",
+                "critical"
+              ],
+              "type": "string"
+            },
+            "title": "Flags",
+            "type": "object"
+          },
+          "hints": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewHint"
+            },
+            "title": "Hints",
+            "type": "array"
+          },
+          "input_tokens": {
+            "title": "Input Tokens",
+            "type": "integer"
+          },
+          "latency_ms": {
+            "title": "Latency Ms",
+            "type": "integer"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "output_tokens": {
+            "title": "Output Tokens",
+            "type": "integer"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Extraction"
+          },
+          "prompt_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt Version"
+          },
+          "source": {
+            "enum": [
+              "ai",
+              "nurse"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "source",
+          "payload",
+          "flags",
+          "hints",
+          "model",
+          "prompt_version",
+          "input_tokens",
+          "output_tokens",
+          "cost_usd",
+          "latency_ms",
+          "created_at"
+        ],
+        "title": "DraftOut",
+        "type": "object"
+      },
+      "DraftUpdateIn": {
+        "description": "A nurse's edit. Stored as a new draft version; nothing is confirmed yet.\n\n`Extraction` itself carries no size limits because it doubles as the LLM output schema\n(structured-output APIs reject length constraints); the limits live here, at the API edge.",
+        "properties": {
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Extraction"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "title": "DraftUpdateIn",
+        "type": "object"
+      },
+      "ErrorCode": {
+        "enum": [
+          "unauthenticated",
+          "forbidden",
+          "not_found",
+          "validation_error",
+          "invalid_state",
+          "conflict",
+          "payload_rejected",
+          "rate_limited",
+          "internal_error"
+        ],
+        "title": "ErrorCode",
+        "type": "string"
+      },
+      "ErrorOut": {
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "details": {
+            "additionalProperties": true,
+            "title": "Details",
+            "type": "object"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ],
+        "title": "ErrorOut",
+        "type": "object"
+      },
+      "EvalCaseOut": {
+        "properties": {
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "difficulty": {
+            "title": "Difficulty",
+            "type": "string"
+          },
+          "diffs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Diffs",
+            "type": "array"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "perfect": {
+            "title": "Perfect",
+            "type": "boolean"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "tags",
+          "difficulty",
+          "perfect",
+          "text",
+          "diffs",
+          "error"
+        ],
+        "title": "EvalCaseOut",
+        "type": "object"
+      },
+      "EvalRunOut": {
+        "properties": {
+          "by_tag": {
+            "items": {
+              "$ref": "#/components/schemas/EvalTagOut"
+            },
+            "title": "By Tag",
+            "type": "array"
+          },
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/EvalCaseOut"
+            },
+            "title": "Cases",
+            "type": "array"
+          },
+          "dataset": {
+            "title": "Dataset",
+            "type": "string"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "prompt_version": {
+            "title": "Prompt Version",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "report": {
+            "title": "Report",
+            "type": "string"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/EvalSummaryOut"
+          }
+        },
+        "required": [
+          "report",
+          "date",
+          "provider",
+          "model",
+          "mode",
+          "dataset",
+          "prompt_version",
+          "summary",
+          "by_tag",
+          "cases"
+        ],
+        "title": "EvalRunOut",
+        "type": "object"
+      },
+      "EvalSummaryOut": {
+        "properties": {
+          "alert_accuracy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Accuracy"
+          },
+          "cases": {
+            "title": "Cases",
+            "type": "integer"
+          },
+          "cost_per_note_usd": {
+            "title": "Cost Per Note Usd",
+            "type": "number"
+          },
+          "errors": {
+            "title": "Errors",
+            "type": "integer"
+          },
+          "implausible_kept_out": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Implausible Kept Out"
+          },
+          "latency_avg_ms": {
+            "title": "Latency Avg Ms",
+            "type": "number"
+          },
+          "medications_f1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Medications F1"
+          },
+          "patient_match_accuracy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Match Accuracy"
+          },
+          "perfect_cases": {
+            "title": "Perfect Cases",
+            "type": "integer"
+          },
+          "symptoms_f1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Symptoms F1"
+          },
+          "value_accuracy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Accuracy"
+          },
+          "vital_precision": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vital Precision"
+          },
+          "vital_recall": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vital Recall"
+          }
+        },
+        "required": [
+          "cases",
+          "perfect_cases",
+          "errors",
+          "value_accuracy",
+          "vital_precision",
+          "vital_recall",
+          "symptoms_f1",
+          "medications_f1",
+          "patient_match_accuracy",
+          "alert_accuracy",
+          "implausible_kept_out",
+          "cost_per_note_usd",
+          "latency_avg_ms"
+        ],
+        "title": "EvalSummaryOut",
+        "type": "object"
+      },
+      "EvalTagOut": {
+        "properties": {
+          "cases": {
+            "title": "Cases",
+            "type": "integer"
+          },
+          "perfect_cases": {
+            "title": "Perfect Cases",
+            "type": "integer"
+          },
+          "tag": {
+            "title": "Tag",
+            "type": "string"
+          },
+          "value_accuracy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Accuracy"
+          }
+        },
+        "required": [
+          "tag",
+          "cases",
+          "perfect_cases",
+          "value_accuracy"
+        ],
+        "title": "EvalTagOut",
+        "type": "object"
+      },
+      "Extraction": {
+        "properties": {
+          "free_text_summary": {
+            "description": "1-2 sentences, for the nurse.",
+            "title": "Free Text Summary",
+            "type": "string"
+          },
+          "medications": {
+            "items": {
+              "$ref": "#/components/schemas/Medication"
+            },
+            "title": "Medications",
+            "type": "array"
+          },
+          "patient_mention": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Placeholder token after redaction, e.g. \"<PATIENT_1>\".",
+            "title": "Patient Mention"
+          },
+          "symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symptoms",
+            "type": "array"
+          },
+          "uncertain": {
+            "description": "Anything the model was not sure about.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Uncertain",
+            "type": "array"
+          },
+          "vitals": {
+            "items": {
+              "$ref": "#/components/schemas/Vital"
+            },
+            "title": "Vitals",
+            "type": "array"
+          }
+        },
+        "required": [
+          "patient_mention",
+          "vitals",
+          "symptoms",
+          "medications",
+          "free_text_summary",
+          "uncertain"
+        ],
+        "title": "Extraction",
+        "type": "object"
+      },
+      "FieldChange": {
+        "properties": {
+          "after": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "After"
+          },
+          "before": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Before"
+          },
+          "change": {
+            "enum": [
+              "added",
+              "removed",
+              "changed"
+            ],
+            "title": "Change",
+            "type": "string"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "change",
+          "before",
+          "after"
+        ],
+        "title": "FieldChange",
+        "type": "object"
+      },
+      "FieldStatsOut": {
+        "properties": {
+          "added": {
+            "title": "Added",
+            "type": "integer"
+          },
+          "changed": {
+            "title": "Changed",
+            "type": "integer"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "removed": {
+            "title": "Removed",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "field",
+          "added",
+          "removed",
+          "changed",
+          "total"
+        ],
+        "title": "FieldStatsOut",
+        "type": "object"
+      },
+      "LatestVitalOut": {
+        "properties": {
+          "effective_at": {
+            "format": "date-time",
+            "title": "Effective At",
+            "type": "string"
+          },
+          "flag": {
+            "title": "Flag",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "kind",
+          "value",
+          "unit",
+          "flag",
+          "effective_at"
+        ],
+        "title": "LatestVitalOut",
+        "type": "object"
+      },
+      "LiveResponse": {
+        "properties": {
+          "status": {
+            "const": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "LiveResponse",
+        "type": "object"
+      },
+      "LlmMetricsOut": {
+        "properties": {
+          "avg_cost_per_note_usd": {
+            "title": "Avg Cost Per Note Usd",
+            "type": "number"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/DailyLlmMetrics"
+            },
+            "title": "Daily",
+            "type": "array"
+          },
+          "days": {
+            "title": "Days",
+            "type": "integer"
+          },
+          "extraction_cost_usd": {
+            "title": "Extraction Cost Usd",
+            "type": "number"
+          },
+          "total_cost_usd": {
+            "title": "Total Cost Usd",
+            "type": "number"
+          },
+          "total_extractions": {
+            "title": "Total Extractions",
+            "type": "integer"
+          },
+          "transcription": {
+            "$ref": "#/components/schemas/TranscriptionMetrics"
+          },
+          "ward": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ward"
+          }
+        },
+        "required": [
+          "days",
+          "ward",
+          "total_extractions",
+          "extraction_cost_usd",
+          "transcription",
+          "total_cost_usd",
+          "avg_cost_per_note_usd",
+          "daily"
+        ],
+        "title": "LlmMetricsOut",
+        "type": "object"
+      },
+      "Medication": {
+        "properties": {
+          "dose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dose"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "route": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route"
+          },
+          "source_text": {
+            "title": "Source Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "dose",
+          "route",
+          "source_text"
+        ],
+        "title": "Medication",
+        "type": "object"
+      },
+      "NoteOut": {
+        "properties": {
+          "author_id": {
+            "format": "uuid",
+            "title": "Author Id",
+            "type": "string"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateOut"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "confirmed_by": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed By"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "draft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DraftOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Message"
+          },
+          "error_step": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Step"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "match_status": {
+            "anyOf": [
+              {
+                "enum": [
+                  "matched",
+                  "ambiguous",
+                  "none"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Match Status"
+          },
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          },
+          "source": {
+            "enum": [
+              "audio",
+              "text"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "stalled": {
+            "title": "Stalled",
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NoteStatus"
+          },
+          "timings_ms": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Timings Ms",
+            "type": "object"
+          },
+          "transcript": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript"
+          },
+          "transcription_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcription Model"
+          },
+          "ward": {
+            "title": "Ward",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "ward",
+          "status",
+          "source",
+          "author_id",
+          "patient_id",
+          "match_status",
+          "candidates",
+          "transcript",
+          "transcription_model",
+          "draft",
+          "error_step",
+          "error_message",
+          "stalled",
+          "timings_ms",
+          "created_at",
+          "confirmed_at",
+          "confirmed_by"
+        ],
+        "title": "NoteOut",
+        "type": "object"
+      },
+      "NoteStatus": {
+        "enum": [
+          "uploaded",
+          "transcribed",
+          "in_review",
+          "confirmed",
+          "rejected"
+        ],
+        "title": "NoteStatus",
+        "type": "string"
+      },
+      "NoteSummaryOut": {
+        "properties": {
+          "author_id": {
+            "format": "uuid",
+            "title": "Author Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "error_step": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Step"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NoteStatus"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "patient_id",
+          "author_id",
+          "created_at",
+          "error_step"
+        ],
+        "title": "NoteSummaryOut",
+        "type": "object"
+      },
+      "ObservationOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "effective_at": {
+            "format": "date-time",
+            "title": "Effective At",
+            "type": "string"
+          },
+          "flag": {
+            "title": "Flag",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "note_id": {
+            "format": "uuid",
+            "title": "Note Id",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "note_id",
+          "kind",
+          "code",
+          "value",
+          "unit",
+          "flag",
+          "effective_at"
+        ],
+        "title": "ObservationOut",
+        "type": "object"
+      },
+      "Page_AuditEventOut_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEventOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "Page[AuditEventOut]",
+        "type": "object"
+      },
+      "Page_ObservationOut_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ObservationOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "Page[ObservationOut]",
+        "type": "object"
+      },
+      "PatientOut": {
+        "properties": {
+          "birth_date": {
+            "format": "date",
+            "title": "Birth Date",
+            "type": "string"
+          },
+          "family_name": {
+            "title": "Family Name",
+            "type": "string"
+          },
+          "given_name": {
+            "title": "Given Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "mrn": {
+            "title": "Mrn",
+            "type": "string"
+          },
+          "room": {
+            "title": "Room",
+            "type": "string"
+          },
+          "sex": {
+            "title": "Sex",
+            "type": "string"
+          },
+          "ward": {
+            "title": "Ward",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mrn",
+          "given_name",
+          "family_name",
+          "birth_date",
+          "sex",
+          "ward",
+          "room"
+        ],
+        "title": "PatientOut",
+        "type": "object"
+      },
+      "ReadyResponse": {
+        "properties": {
+          "database": {
+            "enum": [
+              "ok",
+              "unavailable"
+            ],
+            "title": "Database",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "unavailable"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "database"
+        ],
+        "title": "ReadyResponse",
+        "type": "object"
+      },
+      "RejectIn": {
+        "properties": {
+          "reason": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "title": "RejectIn",
+        "type": "object"
+      },
+      "ReviewHint": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "systolic_bp",
+              "diastolic_bp",
+              "heart_rate",
+              "respiratory_rate",
+              "temperature",
+              "spo2",
+              "weight",
+              "blood_glucose"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "reason": {
+            "enum": [
+              "self_correction",
+              "not_in_transcript"
+            ],
+            "title": "Reason",
+            "type": "string"
+          },
+          "retracted_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retracted Value"
+          }
+        },
+        "required": [
+          "kind",
+          "reason",
+          "message"
+        ],
+        "title": "ReviewHint",
+        "type": "object"
+      },
+      "Role": {
+        "enum": [
+          "nurse",
+          "charge_nurse",
+          "auditor"
+        ],
+        "title": "Role",
+        "type": "string"
+      },
+      "RuleSet": {
+        "additionalProperties": false,
+        "properties": {
+          "rules": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Thresholds"
+            },
+            "propertyNames": {
+              "enum": [
+                "systolic_bp",
+                "diastolic_bp",
+                "heart_rate",
+                "respiratory_rate",
+                "temperature",
+                "spo2",
+                "weight",
+                "blood_glucose"
+              ]
+            },
+            "title": "Rules",
+            "type": "object"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "rules"
+        ],
+        "title": "RuleSet",
+        "type": "object"
+      },
+      "TextNoteIn": {
+        "properties": {
+          "patient_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Id"
+          },
+          "text": {
+            "maxLength": 4000,
+            "minLength": 3,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextNoteIn",
+        "type": "object"
+      },
+      "Thresholds": {
+        "additionalProperties": false,
+        "properties": {
+          "critical_above": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Critical Above"
+          },
+          "critical_below": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Critical Below"
+          },
+          "warning_above": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning Above"
+          },
+          "warning_below": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning Below"
+          }
+        },
+        "title": "Thresholds",
+        "type": "object"
+      },
+      "TranscriptOut": {
+        "description": "A transcript preview of a recording that has not been sent as a note.",
+        "properties": {
+          "latency_ms": {
+            "title": "Latency Ms",
+            "type": "integer"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "model",
+          "latency_ms"
+        ],
+        "title": "TranscriptOut",
+        "type": "object"
+      },
+      "TranscriptionMetrics": {
+        "properties": {
+          "cost_usd": {
+            "title": "Cost Usd",
+            "type": "number"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "integer"
+          },
+          "seconds": {
+            "title": "Seconds",
+            "type": "number"
+          }
+        },
+        "required": [
+          "notes",
+          "seconds",
+          "cost_usd"
+        ],
+        "title": "TranscriptionMetrics",
+        "type": "object"
+      },
+      "UserOut": {
+        "properties": {
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "ward": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ward"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "display_name",
+          "role",
+          "ward"
+        ],
+        "title": "UserOut",
+        "type": "object"
+      },
+      "Vital": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "systolic_bp",
+              "diastolic_bp",
+              "heart_rate",
+              "respiratory_rate",
+              "temperature",
+              "spo2",
+              "weight",
+              "blood_glucose"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "source_text": {
+            "description": "Exact span from the transcript, for highlighting.",
+            "title": "Source Text",
+            "type": "string"
+          },
+          "unit": {
+            "description": "Unit as spoken; normalized to UCUM by our code, not the LLM.",
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "kind",
+          "value",
+          "unit",
+          "source_text"
+        ],
+        "title": "Vital",
+        "type": "object"
+      },
+      "WardPatientOut": {
+        "properties": {
+          "birth_date": {
+            "format": "date",
+            "title": "Birth Date",
+            "type": "string"
+          },
+          "family_name": {
+            "title": "Family Name",
+            "type": "string"
+          },
+          "given_name": {
+            "title": "Given Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "latest_vitals": {
+            "items": {
+              "$ref": "#/components/schemas/LatestVitalOut"
+            },
+            "title": "Latest Vitals",
+            "type": "array"
+          },
+          "mrn": {
+            "title": "Mrn",
+            "type": "string"
+          },
+          "open_drafts": {
+            "title": "Open Drafts",
+            "type": "integer"
+          },
+          "room": {
+            "title": "Room",
+            "type": "string"
+          },
+          "sex": {
+            "title": "Sex",
+            "type": "string"
+          },
+          "ward": {
+            "title": "Ward",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mrn",
+          "given_name",
+          "family_name",
+          "birth_date",
+          "sex",
+          "ward",
+          "room",
+          "latest_vitals",
+          "open_drafts"
+        ],
+        "title": "WardPatientOut",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Voice documentation for nurses. Demo \u2014 synthetic data only.",
+    "title": "CareNote AI",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/alerts/rules": {
+      "get": {
+        "description": "The active threshold rules (read-only), e.g. to draw normal ranges on charts.",
+        "operationId": "get_rules_alerts_rules_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleSet"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Get Rules",
+        "tags": [
+          "alerts"
+        ]
+      }
+    },
+    "/audit": {
+      "get": {
+        "description": "Audit log, newest first. Auditor only; viewing it is itself audited.",
+        "operationId": "list_audit_events_audit_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "entity",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 32,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Entity"
+            }
+          },
+          {
+            "in": "query",
+            "name": "entity_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Entity Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 64,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Action"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_AuditEventOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "List Audit Events",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/audit/actions": {
+      "get": {
+        "description": "Every action name that has been recorded, for the log's filter. Not audited itself.",
+        "operationId": "list_audit_actions_audit_actions_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response List Audit Actions Audit Actions Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "List Audit Actions",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/auth/demo-login": {
+      "post": {
+        "operationId": "demo_login_auth_demo_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoLoginIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Demo Login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/demo-users": {
+      "get": {
+        "description": "Public: the login screen lists these as one-click cards.",
+        "operationId": "demo_users_auth_demo_users_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserOut"
+                  },
+                  "title": "Response Demo Users Auth Demo Users Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Demo Users",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logout_auth_logout_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Logout",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "me_auth_me_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Me",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "description": "Process is up.",
+        "operationId": "live_health_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Live",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "description": "Process is up and the database answers.",
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadyResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadyResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Ready",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/metrics/llm": {
+      "get": {
+        "description": "Tokens, cost and latency of AI extractions per day and model, plus transcription cost.\nCharge nurses see their ward; auditors see every ward.",
+        "operationId": "llm_metrics_metrics_llm_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 30,
+              "maximum": 365,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LlmMetricsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Llm Metrics",
+        "tags": [
+          "metrics"
+        ]
+      }
+    },
+    "/notes": {
+      "get": {
+        "description": "Recent notes visible to the caller.",
+        "operationId": "list_notes_notes_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NoteSummaryOut"
+                  },
+                  "title": "Response List Notes Notes Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "List Notes",
+        "tags": [
+          "notes"
+        ]
+      },
+      "post": {
+        "description": "Upload a voice note. Transcription and extraction run in the background.",
+        "operationId": "upload_note_notes_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_note_notes_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Upload Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/text": {
+      "post": {
+        "description": "Create a note from typed text (skips transcription). Useful without a microphone.",
+        "operationId": "create_text_note_notes_text_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TextNoteIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Create Text Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/transcribe": {
+      "post": {
+        "description": "Transcribe a recording so the nurse can read and correct the text before sending it.\nNothing is stored and no note is created.",
+        "operationId": "transcribe_preview_notes_transcribe_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_preview_notes_transcribe_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Transcribe Preview",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/{note_id}": {
+      "get": {
+        "operationId": "get_note_notes__note_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "note_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Note Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Get Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/{note_id}/confirm": {
+      "post": {
+        "description": "The nurse confirms the draft: only now are observations written.",
+        "operationId": "confirm_note_notes__note_id__confirm_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "note_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Note Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Confirm Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/{note_id}/draft": {
+      "patch": {
+        "description": "Save the nurse's corrections as a new draft version (audited).",
+        "operationId": "update_draft_notes__note_id__draft_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "note_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Note Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Update Draft",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/{note_id}/reject": {
+      "post": {
+        "operationId": "reject_note_notes__note_id__reject_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "note_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Note Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Reject Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/notes/{note_id}/retry": {
+      "post": {
+        "description": "Re-run the pipeline from the last good step after a failure.",
+        "operationId": "retry_note_notes__note_id__retry_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "note_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Note Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Retry Note",
+        "tags": [
+          "notes"
+        ]
+      }
+    },
+    "/patients": {
+      "get": {
+        "description": "Patients of a ward with their latest confirmed vitals. Defaults to the caller's ward.",
+        "operationId": "list_patients_patients_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "ward",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ward"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WardPatientOut"
+                  },
+                  "title": "Response List Patients Patients Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "List Patients",
+        "tags": [
+          "patients"
+        ]
+      }
+    },
+    "/patients/{patient_id}": {
+      "get": {
+        "operationId": "get_patient_patients__patient_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patient_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Patient Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Get Patient",
+        "tags": [
+          "patients"
+        ]
+      }
+    },
+    "/patients/{patient_id}/fhir": {
+      "get": {
+        "description": "FHIR R4 transaction Bundle with the patient and all confirmed observations (audited).",
+        "operationId": "export_fhir_patients__patient_id__fhir_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patient_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Patient Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/fhir+json": {},
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Export Fhir",
+        "tags": [
+          "fhir"
+        ]
+      }
+    },
+    "/patients/{patient_id}/observations": {
+      "get": {
+        "description": "Confirmed observations of the last `days` days, oldest first.",
+        "operationId": "list_observations_patients__patient_id__observations_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "patient_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Patient Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 30,
+              "maximum": 365,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 500,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_ObservationOut_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "List Observations",
+        "tags": [
+          "patients"
+        ]
+      }
+    },
+    "/quality/corrections": {
+      "get": {
+        "description": "How often nurses edit AI drafts before confirming, and which fields they change.\nCharge nurses see their ward; auditors every ward. Transcripts are shown redacted.",
+        "operationId": "corrections_quality_corrections_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 30,
+              "maximum": 365,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Corrections",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/quality/corrections/export": {
+      "get": {
+        "description": "Nurse-corrected notes as eval cases (JSONL, redacted text). Audited.\nSave as `api/evals/data/cases_corrections.jsonl`, then `make eval DATASET=cases_corrections`.",
+        "operationId": "export_corrections_quality_corrections_export_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 30,
+              "maximum": 365,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/x-ndjson": {}
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Export Corrections",
+        "tags": [
+          "quality"
+        ]
+      }
+    },
+    "/quality/evals": {
+      "get": {
+        "description": "The latest offline eval run per provider, model, mode and dataset (synthetic cases).",
+        "operationId": "eval_runs_quality_evals_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EvalRunOut"
+                  },
+                  "title": "Response Eval Runs Quality Evals Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Eval Runs",
+        "tags": [
+          "quality"
+        ]
+      }
+    }
+  }
+}
