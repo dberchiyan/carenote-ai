@@ -24,7 +24,7 @@ jobs:
         options: >-
           --health-cmd "pg_isready -U carenote" --health-interval 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: astral-sh/setup-uv@v6
         with:
@@ -46,7 +46,7 @@ jobs:
     name: compose · FHIR validation · Playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
