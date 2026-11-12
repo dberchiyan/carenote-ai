@@ -1,0 +1,56 @@
+name: Nightly eval
+
+# Runs the evaluation suite with real providers. Needs repository secrets
+# CARENOTE_ANTHROPIC_API_KEY (and CARENOTE_OPENAI_API_KEY for the comparison / audio mode).
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      compare:
+        description: "Providers to compare (space separated)"
+        default: "fake anthropic"
+      mode:
+        description: "text or audio"
+        default: "text"
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CARENOTE_ANTHROPIC_API_KEY: ${{ secrets.CARENOTE_ANTHROPIC_API_KEY }}
+      CARENOTE_OPENAI_API_KEY: ${{ secrets.CARENOTE_OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: api/uv.lock
+      - run: cd api && uv sync --locked
+      - name: Generate audio
+        if: ${{ inputs.mode == 'audio' }}
+        run: make dataset-audio TTS=openai
+      # Budget: each run refuses to start when its estimate exceeds EVAL_BUDGET_USD (list prices).
+      - name: Run eval
+        run: make eval COMPARE="${{ inputs.compare || 'fake anthropic' }}" MODE="${{ inputs.mode || 'text' }}" TRANSCRIBER=openai
+        env:
+          EVAL_BUDGET_USD: "3"
+      - name: Run eval on the held-out set
+        if: ${{ inputs.mode != 'audio' }}
+        run: make eval COMPARE="${{ inputs.compare || 'fake anthropic' }}" DATASET=cases_holdout
+        env:
+          EVAL_BUDGET_USD: "3"
+      # Regression gate: the held-out run must not fall more than 2 p.p. on any headline metric
+      # against the latest committed report for the same provider, model and dataset.
+      - name: Compare with the committed baseline
+        if: ${{ inputs.mode != 'audio' }}
+        run: |
+          new=$(ls -t api/evals/reports/*-holdout.json | head -1)
+          base=$(git ls-files api/evals/reports | grep -- '-holdout.json$' | grep -v "$(basename "$new")" | tail -1)
+          make eval-gate REPORT="$(realpath --relative-to=api "$new")" BASELINE="${base:+$(realpath --relative-to=api "$base")}" BUDGET=3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report
+          path: api/evals/reports/

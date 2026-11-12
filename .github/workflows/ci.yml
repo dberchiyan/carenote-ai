@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: make check
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16.15-alpine
+        env:
+          POSTGRES_USER: carenote
+          POSTGRES_PASSWORD: carenote
+          POSTGRES_DB: carenote
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U carenote" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: api/uv.lock
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: make install
+      # Fake providers only; no API keys are available or needed here.
+      # The db target is skipped: the Postgres service container is already running.
+      - run: make check-api-ci check-web types-check
+
+  e2e:
+    name: compose · FHIR validation · Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: api/uv.lock
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: make install
+      - run: make up seed
+      - run: make test-integration
+      - run: cd web && npx playwright install --with-deps chromium
+      - run: cd web && npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: web/playwright-report
+      - if: failure()
+        run: docker compose logs
+      - if: always()
+        run: docker compose down -v
