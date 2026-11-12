@@ -25,7 +25,7 @@ export function LatestVitals({ vitals }: { vitals: LatestVital[] }) {
     items.push({ label: VITAL_LABELS[v.kind].short, value: String(v.value), flag: v.flag });
   }
   return (
-    <ul className="flex gap-1.5 xl:flex-wrap">
+    <ul className="flex flex-wrap gap-1.5">
       {items.map((item) => {
         const flagged = isFlag(item.flag) && item.flag !== "normal";
         return (
@@ -90,5 +90,44 @@ export function PatientRow({ p }: { p: WardPatient }) {
         )}
       </td>
     </tr>
+  );
+}
+
+/** The phone version of a table row: everything the row shows, stacked, one tap target. */
+export function PatientCard({ p }: { p: WardPatient }) {
+  const flags = p.latest_vitals.map((v) => v.flag).filter(isFlag);
+  const worst = worstFlag(flags);
+  return (
+    <li>
+      <Link
+        href={`/patients/${p.id}`}
+        className="card focus-visible:outline-brand-ring active:bg-surface-2 block p-3.5 focus-visible:outline-2"
+      >
+        <div className="flex items-center gap-3">
+          <span className="bg-surface-3 text-ink-2 inline-flex min-w-12 justify-center rounded-md px-2 py-1 font-mono text-xs font-medium">
+            {p.room}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="text-ink block truncate font-semibold">
+              {p.family_name}, {p.given_name}
+            </span>
+            <span className="text-ink-3 block text-xs tabular-nums">
+              {ageFrom(p.birth_date)} y · {p.sex === "female" ? "F" : "M"} · {p.mrn}
+            </span>
+          </span>
+          {flags.length > 0 && <FlagBadge flag={worst} />}
+        </div>
+        {(p.latest_vitals.length > 0 || p.open_drafts > 0) && (
+          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+            <LatestVitals vitals={p.latest_vitals} />
+            {p.open_drafts > 0 && (
+              <Pill tone="info" className="ml-auto">
+                {p.open_drafts} draft{p.open_drafts > 1 ? "s" : ""}
+              </Pill>
+            )}
+          </div>
+        )}
+      </Link>
+    </li>
   );
 }

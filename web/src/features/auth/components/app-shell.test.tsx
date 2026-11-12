@@ -44,8 +44,9 @@ const auditor = {
 describe("AppShell", () => {
   it("shows each role its own navigation", () => {
     renderShell(nurse, "/ward");
-    expect(screen.getByRole("link", { name: "Ward" })).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "Audit log" })).not.toBeInTheDocument();
+    // The sidebar and the phone tab bar both render; CSS decides which one shows.
+    expect(screen.getAllByRole("link", { name: "Ward" }).length).toBeGreaterThan(0);
+    expect(screen.queryAllByRole("link", { name: "Audit log" })).toHaveLength(0);
     expect(screen.getByText("page content")).toBeInTheDocument();
   });
 

@@ -141,7 +141,7 @@ function EvalSection({ runs }: { runs: EvalRun[] }) {
         </span>
       </p>
 
-      <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <StatCard
           icon={<TargetIcon size={16} />}
           label="Value accuracy"
@@ -287,7 +287,7 @@ function CorrectionsSection({ data }: { data: Corrections }) {
         </a>
       </div>
 
-      <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <StatCard
           icon={<EditIcon size={16} />}
           label="Edit rate"

@@ -103,9 +103,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
 
-      {/* Sidebar on desktop, a compact top strip on smaller screens. */}
+      {/* Sidebar on desktop. Phones and tablets get a bottom tab bar instead (below). */}
       <header
-        className={`bg-nav text-nav-ink lg:border-nav-line z-30 flex shrink-0 flex-col motion-reduce:transition-none lg:sticky lg:top-0 lg:h-dvh lg:border-r lg:transition-[width] lg:duration-200 ${
+        className={`bg-nav text-nav-ink lg:border-nav-line z-30 hidden shrink-0 flex-col motion-reduce:transition-none lg:sticky lg:top-0 lg:flex lg:h-dvh lg:border-r lg:transition-[width] lg:duration-200 ${
           collapsed ? "lg:w-[76px]" : "lg:w-64"
         }`}
       >
@@ -209,21 +209,32 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Same container as <main>, so the badge and the account menu sit on the content's edges. */}
         <div className="border-line bg-surface/80 sticky top-0 z-20 border-b backdrop-blur">
-          <div className="mx-auto flex w-full max-w-[1560px] items-center justify-between gap-4 px-5 py-2 lg:px-10">
+          <div className="mx-auto flex w-full max-w-[1560px] items-center justify-between gap-3 px-4 py-2 sm:px-5 lg:px-10">
+            <Link
+              href="/"
+              aria-label="CareNote AI home"
+              className="focus-visible:outline-brand-ring flex items-center gap-2 rounded-lg focus-visible:outline-2 lg:hidden"
+            >
+              <LogoMark size={28} />
+              <span className="text-ink text-[15px] font-semibold tracking-[-0.02em]">
+                CareNote <span className="text-brand-text font-normal">AI</span>
+              </span>
+            </Link>
             <p className="text-ink-2 flex items-center gap-2 text-xs font-medium">
               <span
                 aria-hidden="true"
                 className="inline-block size-1.5 rounded-full bg-amber-500 shadow-[0_0_0_3px_rgb(245_158_11/0.18)]"
               />
-              <span className="hidden sm:inline">Demo environment — synthetic data only</span>
-              <span className="sm:hidden">Demo · synthetic data</span>
+              <span className="hidden lg:inline">Demo environment — synthetic data only</span>
+              <span className="hidden sm:inline lg:hidden">Demo · synthetic data</span>
+              <span className="sr-only sm:hidden">Demo environment, synthetic data only</span>
             </p>
             <UserMenu user={user} onSignOut={signOut} />
           </div>
         </div>
         <main
           id="main"
-          className="mx-auto w-full max-w-[1560px] flex-1 px-5 py-8 lg:px-10 lg:py-10"
+          className="mx-auto w-full max-w-[1560px] flex-1 px-4 pt-6 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-5 sm:pt-8 lg:px-10 lg:py-10"
         >
           {refused ? (
             <div className="card mx-auto mt-10 max-w-lg px-8 py-10 text-center">
@@ -251,6 +262,38 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
           )}
         </main>
+
+        {/* Bottom tab bar: thumb reach on a phone, one tap to every area the role has. */}
+        <nav
+          aria-label="Main"
+          className="border-line bg-surface/95 fixed inset-x-0 bottom-0 z-30 border-t pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
+        >
+          <ul className="mx-auto flex max-w-xl items-stretch">
+            {items.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <li key={item.href} className="min-w-0 flex-1">
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`focus-visible:outline-brand-ring flex min-h-14 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium focus-visible:outline-2 focus-visible:-outline-offset-2 ${
+                      active ? "text-brand-text" : "text-ink-3 hover:text-ink"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-7 w-12 items-center justify-center rounded-full transition-colors ${
+                        active ? "bg-brand-soft" : ""
+                      }`}
+                    >
+                      {item.icon}
+                    </span>
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
     </div>
   );

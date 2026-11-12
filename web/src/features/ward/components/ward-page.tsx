@@ -17,7 +17,7 @@ import { usePageTitle } from "@/shared/lib/use-page-title";
 import { useUrlState } from "@/shared/lib/use-url-state";
 import { FLAG_META } from "@/shared/lib/vitals";
 
-import { PatientRow } from "./patient-row";
+import { PatientCard, PatientRow } from "./patient-row";
 import { NoteItem } from "./recent-notes";
 
 export function WardPage() {
@@ -75,10 +75,13 @@ export function WardPage() {
         title={`Ward ${me.data?.ward ?? ""}`}
         subtitle="Latest confirmed vitals. Flags follow the ward's alert rules."
         actions={
-          <Link href="/notes/new" className={buttonClass("primary")}>
-            <MicIcon size={17} />
-            Record note
-          </Link>
+          // On phones the tab bar already offers Record; the header stays focused on the ward.
+          <span className="hidden sm:block">
+            <Link href="/notes/new" className={buttonClass("primary")}>
+              <MicIcon size={17} />
+              Record note
+            </Link>
+          </span>
         }
       />
 
@@ -91,7 +94,7 @@ export function WardPage() {
       {patients.data && (
         <section
           aria-label="Ward summary"
-          className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+          className="mb-6 grid grid-cols-2 gap-3 sm:mb-8 sm:gap-4 xl:grid-cols-4"
         >
           <StatCard
             icon={<UsersIcon size={16} />}
@@ -133,7 +136,7 @@ export function WardPage() {
               )}
             </h2>
             {patients.data && patients.data.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex w-full items-center gap-2 sm:w-auto">
                 <SearchInput
                   ref={searchRef}
                   aria-label="Search patients"
@@ -142,13 +145,13 @@ export function WardPage() {
                   placeholder="Name, room or MRN"
                   shortcut="/"
                   size="sm"
-                  className="w-56"
+                  className="w-full sm:w-56"
                 />
                 <button
                   type="button"
                   aria-pressed={flaggedOnly}
                   onClick={() => setFlaggedOnly(!flaggedOnly)}
-                  className={`flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium ring-1 transition-colors ring-inset focus-visible:outline-2 ${
+                  className={`flex h-10 shrink-0 items-center gap-1.5 rounded-lg px-3 text-sm font-medium ring-1 transition-colors ring-inset focus-visible:outline-2 sm:h-9 ${
                     flaggedOnly
                       ? "bg-amber-50 text-amber-900 ring-amber-400/60 dark:bg-amber-950/50 dark:text-amber-100 dark:ring-amber-500/40"
                       : "bg-surface text-ink-2 ring-line-strong hover:bg-surface-2"
@@ -170,7 +173,14 @@ export function WardPage() {
             </EmptyState>
           )}
           {patients.data && shown.length > 0 && (
-            <Card className="overflow-x-auto">
+            <ul className="flex flex-col gap-2 md:hidden" aria-label="Patients">
+              {shown.map((p) => (
+                <PatientCard key={p.id} p={p} />
+              ))}
+            </ul>
+          )}
+          {patients.data && shown.length > 0 && (
+            <Card className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[720px] text-left text-sm">
                 <caption className="sr-only">
                   Patients on the ward with latest vitals. Flags: {FLAG_META.warning.label},{" "}
@@ -205,7 +215,7 @@ export function WardPage() {
           )}
         </section>
 
-        <section aria-labelledby="recent-heading" className="order-first min-w-0 2xl:order-none">
+        <section aria-labelledby="recent-heading" className="min-w-0 md:order-first 2xl:order-none">
           <div className="mb-3 flex items-baseline justify-between">
             <h2 id="recent-heading" className="text-lg font-semibold tracking-[-0.01em]">
               {me.data?.role === "charge_nurse" ? "Recent notes on the ward" : "Your recent notes"}
@@ -214,7 +224,7 @@ export function WardPage() {
           <Card className="p-2 2xl:sticky 2xl:top-6">
             {recent.length > 0 ? (
               <ul className="grid gap-x-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-1">
-                {recent.map((n) => (
+                {recent.slice(0, 4).map((n) => (
                   <NoteItem
                     key={n.id}
                     n={n}

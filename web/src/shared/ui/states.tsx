@@ -44,7 +44,7 @@ export function EmptyState({
         </span>
       )}
       <p className="text-ink font-semibold">{title}</p>
-      {children && <div className="text-ink-3 mt-1 max-w-sm text-sm">{children}</div>}
+      {children && <div className="text-ink-3 mt-1 w-full max-w-sm text-sm">{children}</div>}
     </div>
   );
 }
@@ -61,15 +61,21 @@ export function PageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 sm:mb-8">
       <div className="min-w-0">
-        {eyebrow && <p className="eyebrow mb-2">{eyebrow}</p>}
-        <h1 className="text-ink text-[2rem] leading-tight font-semibold tracking-[-0.03em]">
+        {eyebrow && <p className="eyebrow mb-1.5 sm:mb-2">{eyebrow}</p>}
+        <h1 className="text-ink text-[1.625rem] leading-tight font-semibold tracking-[-0.03em] sm:text-[2rem]">
           {title}
         </h1>
-        {subtitle && <p className="text-ink-2 mt-2 max-w-2xl text-[15px]">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-ink-2 mt-1.5 max-w-2xl text-sm sm:mt-2 sm:text-[15px]">{subtitle}</p>
+        )}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+      {actions && (
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto [&>*]:flex-1 sm:[&>*]:flex-none">
+          {actions}
+        </div>
+      )}
     </div>
   );
 }

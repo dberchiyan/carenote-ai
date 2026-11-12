@@ -71,7 +71,8 @@ export function LoginPage() {
 
   return (
     <div className="grid min-h-dvh flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-      <aside className="bg-nav text-nav-ink relative overflow-hidden px-6 py-10 sm:px-12 lg:px-16 lg:py-14">
+      {/* On a phone the hero is one screen-third: the sign-in cards must be reachable without a hunt. */}
+      <aside className="bg-nav text-nav-ink relative overflow-hidden px-6 py-7 sm:px-12 sm:py-10 lg:px-16 lg:py-14">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-40 -right-40 size-[34rem] rounded-full bg-teal-500/15 blur-3xl"
@@ -88,23 +89,23 @@ export function LoginPage() {
             </span>
           </div>
 
-          <div className="mt-14 max-w-xl lg:mt-auto">
+          <div className="mt-7 max-w-xl sm:mt-14 lg:mt-auto">
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-teal-200">
               Clinical voice documentation
             </p>
-            <p className="text-[2.5rem] leading-[1.05] font-semibold tracking-[-0.04em] text-white sm:text-[3.25rem]">
+            <p className="text-[1.875rem] leading-[1.08] font-semibold tracking-[-0.04em] text-white sm:text-[3.25rem]">
               Documentation that keeps pace with <span className="text-teal-300">care.</span>
             </p>
-            <p className="text-nav-ink mt-5 max-w-md text-[15px] leading-relaxed">
+            <p className="text-nav-ink mt-3 max-w-md text-[15px] leading-relaxed sm:mt-5">
               Say the note at the bedside. Review a structured draft in seconds. Confirm — and it is
               in the chart.
             </p>
-            <div className="mt-8">
+            <div className="mt-5 hidden sm:mt-8 sm:block">
               <Waveform />
             </div>
           </div>
 
-          <ul className="mt-12 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:mt-auto lg:pt-14">
+          <ul className="mt-12 hidden gap-x-8 gap-y-6 sm:grid sm:grid-cols-2 lg:mt-auto lg:pt-14">
             {PRINCIPLES.map((p) => (
               <li key={p.title} className="flex gap-3">
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-teal-300">
@@ -122,8 +123,8 @@ export function LoginPage() {
         </div>
       </aside>
 
-      <main className="bg-canvas relative flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
-        <div className="absolute top-5 right-5">
+      <main className="bg-canvas relative flex flex-col justify-center px-5 pt-16 pb-10 sm:px-12 sm:py-12 lg:px-16">
+        <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
           <ThemeToggle />
         </div>
         <div className="mx-auto w-full max-w-md">

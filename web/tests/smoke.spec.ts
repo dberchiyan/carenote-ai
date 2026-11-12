@@ -51,18 +51,29 @@ test("a page outside the role says so instead of loading forever", async ({ as }
   }
 });
 
-test("on a phone the ward table scrolls sideways instead of squeezing", async ({ page }) => {
+test("on a phone the ward is a card list under a tab bar, with nothing to scroll sideways", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/login");
   await page.getByRole("button", { name: /Nurse.*Nora Lindqvist/ }).click();
-  const row = page.getByRole("row").filter({ hasText: "Keller, Anna" });
-  await expect(row).toBeVisible();
-  expect((await row.boundingBox())?.height ?? 0).toBeLessThan(80);
-  const scrolls = await row.evaluate((el) => {
-    const card = el.closest("table")?.parentElement;
-    return !!card && card.scrollWidth > card.clientWidth;
-  });
-  expect(scrolls).toBe(true);
+  await expect(page.getByRole("heading", { name: "Ward 3A" })).toBeVisible();
+  // The table is for wide screens; phones get one tappable card per patient.
+  await expect(page.getByRole("table")).toHaveCount(0);
+  const card = page
+    .getByRole("list", { name: "Patients" })
+    .getByRole("link", { name: /Keller, Anna/ });
+  await expect(card).toBeVisible();
+  expect((await card.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(44);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBe(0);
+  // Navigation moved to the bottom, within thumb reach.
+  const tabs = page.getByRole("navigation", { name: "Main" }).filter({ visible: true });
+  await expect(tabs.getByRole("link", { name: "Record note" })).toBeVisible();
+  const box = await tabs.boundingBox();
+  expect((box?.y ?? 0) + (box?.height ?? 0)).toBeGreaterThan(800);
 });
 
 test("the theme toggle switches to dark, survives a reload and goes back to system", async ({

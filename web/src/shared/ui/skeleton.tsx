@@ -17,7 +17,7 @@ export function SkeletonStatus({ label, children }: { label: string; children: R
 
 export function StatCardsSkeleton({ count = 4 }: { count?: number }) {
   return (
-    <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="mb-8 grid grid-cols-2 gap-4 xl:grid-cols-4">
       {Array.from({ length: count }, (_, i) => (
         <Card key={i} className="p-5">
           <div className="flex items-center justify-between">

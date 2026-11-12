@@ -29,7 +29,7 @@ export function ReviewActions({
   const [rejecting, setRejecting] = useState(false);
   const [reason, setReason] = useState("");
   return (
-    <div className="border-line bg-surface/90 shadow-lift sticky bottom-4 z-10 flex flex-wrap items-center gap-3 rounded-2xl border px-4 py-3 backdrop-blur-md">
+    <div className="border-line bg-surface/90 shadow-lift sticky bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-10 flex flex-wrap items-center gap-2 rounded-2xl border px-3 py-2.5 backdrop-blur-md sm:gap-3 sm:px-4 sm:py-3 lg:bottom-4">
       {rejecting ? (
         <form
           className="flex flex-1 flex-wrap items-center gap-2"
@@ -59,7 +59,10 @@ export function ReviewActions({
           </Button>
           <span className="flex-1" />
           {(!patientSelected || invalid) && (
-            <span id="confirm-hint" className="text-ink-3 text-sm">
+            <span
+              id="confirm-hint"
+              className="text-ink-3 order-last w-full text-xs sm:order-none sm:w-auto sm:text-sm"
+            >
               {!patientSelected
                 ? "Select the patient to enable Confirm."
                 : "Enter a value for every vital sign, or remove the empty row."}

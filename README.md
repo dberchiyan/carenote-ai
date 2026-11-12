@@ -77,8 +77,8 @@ Real LLM extraction: set `CARENOTE_LLM_PROVIDER=anthropic` and `CARENOTE_ANTHROP
 | **AI quality:** offline evals, nurse corrections, export as eval cases                |   —   |   own ward   |    ✅     |
 | **Audit log:** every change with before/after, filters in the URL                     |   —   |      —       |    ✅     |
 
-Light, dark and system themes; phone, tablet and desktop layouts; WCAG 2.1 AA checked with axe in
-the end-to-end tests.
+Light, dark and system themes. On phones and tablets the navigation is a bottom tab bar and every
+table becomes a card list; WCAG 2.1 AA is checked with axe in the end-to-end tests.
 
 ## How it works
 

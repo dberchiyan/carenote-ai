@@ -22,7 +22,8 @@ export function NoteItem({ n, name }: { n: NoteSummary; name: string }) {
         ? "success"
         : "neutral";
   return (
-    <li>
+    // A grid item keeps its content width unless told otherwise; min-w-0 lets the name truncate.
+    <li className="min-w-0">
       <Link
         href={`/notes/${n.id}`}
         className="group hover:bg-surface-2 focus-visible:outline-brand-ring flex items-center gap-3 rounded-xl px-3 py-3 transition-colors focus-visible:outline-2"

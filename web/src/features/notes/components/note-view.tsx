@@ -98,7 +98,7 @@ export function NoteView() {
             className="border-line border-t-brand mb-5 inline-block size-10 animate-spin rounded-full border-[3px] motion-reduce:animate-none"
           />
           <p className="text-ink text-xl font-semibold tracking-[-0.02em]">Processing your note…</p>
-          <p className="text-ink-2 mt-2 max-w-md">
+          <p className="text-ink-2 mt-2 w-full max-w-md">
             Transcribing, matching the patient, removing personal data and extracting values.
           </p>
         </Card>

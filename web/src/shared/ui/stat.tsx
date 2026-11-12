@@ -19,7 +19,7 @@ export function StatCard({
   tone?: "neutral" | "attention";
 }) {
   return (
-    <Card className="p-5">
+    <Card className="p-4 sm:p-5">
       <div className="flex items-center justify-between">
         <span className="text-ink-2 text-sm font-medium">{label}</span>
         <span
@@ -32,8 +32,8 @@ export function StatCard({
           {icon}
         </span>
       </div>
-      <div className="mt-3 flex items-baseline gap-1">
-        <span className="text-ink text-[2rem] leading-none font-semibold tracking-[-0.035em] tabular-nums">
+      <div className="mt-2.5 flex items-baseline gap-1 sm:mt-3">
+        <span className="text-ink text-[1.75rem] leading-none font-semibold tracking-[-0.035em] tabular-nums sm:text-[2rem]">
           {value}
         </span>
         {unit && <span className="text-ink-3 text-sm font-medium">{unit}</span>}
