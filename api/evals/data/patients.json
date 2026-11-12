@@ -1,0 +1,302 @@
+[
+  {
+    "id": "18f016ae-49aa-5c77-b60d-9b3e5038ff33",
+    "mrn": "SYN-042-0001",
+    "given_name": "Anna",
+    "family_name": "Keller",
+    "birth_date": "1944-08-04",
+    "sex": "female",
+    "ward": "3A",
+    "room": "301a"
+  },
+  {
+    "id": "443e5cf2-ce32-5d20-8c9d-e429c7b6da2b",
+    "mrn": "SYN-042-0002",
+    "given_name": "Hanna",
+    "family_name": "Keller",
+    "birth_date": "1963-03-19",
+    "sex": "female",
+    "ward": "3A",
+    "room": "301b"
+  },
+  {
+    "id": "6a4c0714-b2fa-528f-8a27-872bc77b8f15",
+    "mrn": "SYN-042-0003",
+    "given_name": "Peter",
+    "family_name": "Braun",
+    "birth_date": "1961-11-15",
+    "sex": "male",
+    "ward": "3B",
+    "room": "321a"
+  },
+  {
+    "id": "69eddc76-6c50-540b-9cf1-c845674ded6c",
+    "mrn": "SYN-042-0004",
+    "given_name": "Petra",
+    "family_name": "Braun",
+    "birth_date": "1948-10-18",
+    "sex": "female",
+    "ward": "3B",
+    "room": "321b"
+  },
+  {
+    "id": "f8d78d04-3564-5dc5-801d-f2d1cd016a6a",
+    "mrn": "SYN-042-0005",
+    "given_name": "John",
+    "family_name": "Smith",
+    "birth_date": "1990-02-15",
+    "sex": "male",
+    "ward": "3A",
+    "room": "302a"
+  },
+  {
+    "id": "71e3b7c8-0b23-58ed-af57-3ad016ff7b56",
+    "mrn": "SYN-042-0006",
+    "given_name": "Jon",
+    "family_name": "Smyth",
+    "birth_date": "1953-12-14",
+    "sex": "male",
+    "ward": "3B",
+    "room": "322a"
+  },
+  {
+    "id": "5f14bc38-6fd1-57f3-9d3f-82e0a2247a81",
+    "mrn": "SYN-042-0007",
+    "given_name": "Maria",
+    "family_name": "Morgan",
+    "birth_date": "1992-12-18",
+    "sex": "female",
+    "ward": "3A",
+    "room": "302b"
+  },
+  {
+    "id": "815727d1-cef4-5414-819d-aaf255e5f10a",
+    "mrn": "SYN-042-0008",
+    "given_name": "George",
+    "family_name": "Richter",
+    "birth_date": "1991-04-29",
+    "sex": "male",
+    "ward": "3B",
+    "room": "322b"
+  },
+  {
+    "id": "5ecafc51-35af-5314-b2bf-4d3629af444c",
+    "mrn": "SYN-042-0009",
+    "given_name": "Alice",
+    "family_name": "Becker",
+    "birth_date": "1988-02-20",
+    "sex": "female",
+    "ward": "3A",
+    "room": "303a"
+  },
+  {
+    "id": "024c13c6-e3eb-5338-840f-7404e49065ba",
+    "mrn": "SYN-042-0010",
+    "given_name": "Irene",
+    "family_name": "Hartmann",
+    "birth_date": "1936-05-28",
+    "sex": "female",
+    "ward": "3B",
+    "room": "323a"
+  },
+  {
+    "id": "1a2ad53f-88fe-5d07-b070-ef3b2851285a",
+    "mrn": "SYN-042-0011",
+    "given_name": "Maria",
+    "family_name": "Wagner",
+    "birth_date": "1984-08-25",
+    "sex": "female",
+    "ward": "3A",
+    "room": "303b"
+  },
+  {
+    "id": "71557c2b-ac99-575f-987a-e095131aa0a3",
+    "mrn": "SYN-042-0012",
+    "given_name": "Olivia",
+    "family_name": "Krause",
+    "birth_date": "1986-12-19",
+    "sex": "female",
+    "ward": "3B",
+    "room": "323b"
+  },
+  {
+    "id": "33799e23-90a9-519f-943b-9157e62def2d",
+    "mrn": "SYN-042-0013",
+    "given_name": "Helen",
+    "family_name": "Koch",
+    "birth_date": "1945-05-09",
+    "sex": "female",
+    "ward": "3A",
+    "room": "304a"
+  },
+  {
+    "id": "3b1ff541-d788-5e25-b632-bbce5cc96e91",
+    "mrn": "SYN-042-0014",
+    "given_name": "George",
+    "family_name": "Lange",
+    "birth_date": "1977-12-02",
+    "sex": "male",
+    "ward": "3B",
+    "room": "324a"
+  },
+  {
+    "id": "d50e4583-87ed-55ec-b998-19ed51bd7c71",
+    "mrn": "SYN-042-0015",
+    "given_name": "Edward",
+    "family_name": "Fischer",
+    "birth_date": "1995-06-01",
+    "sex": "male",
+    "ward": "3A",
+    "room": "304b"
+  },
+  {
+    "id": "3311f05d-6fce-5361-bf03-f30388fa5697",
+    "mrn": "SYN-042-0016",
+    "given_name": "Alice",
+    "family_name": "Hartmann",
+    "birth_date": "1951-12-18",
+    "sex": "female",
+    "ward": "3B",
+    "room": "324b"
+  },
+  {
+    "id": "b7af3926-4966-5d43-bb4d-3071ba811087",
+    "mrn": "SYN-042-0017",
+    "given_name": "Henry",
+    "family_name": "Hoffmann",
+    "birth_date": "1944-08-29",
+    "sex": "male",
+    "ward": "3A",
+    "room": "305a"
+  },
+  {
+    "id": "9589f243-d672-578d-9e1e-3d42bb23a35e",
+    "mrn": "SYN-042-0018",
+    "given_name": "Margaret",
+    "family_name": "Neumann",
+    "birth_date": "1971-06-22",
+    "sex": "female",
+    "ward": "3B",
+    "room": "325a"
+  },
+  {
+    "id": "5c24fe47-4e1f-5a03-943f-6853152afc70",
+    "mrn": "SYN-042-0019",
+    "given_name": "Sophie",
+    "family_name": "Zimmermann",
+    "birth_date": "1964-01-16",
+    "sex": "female",
+    "ward": "3A",
+    "room": "305b"
+  },
+  {
+    "id": "56deb857-7084-57bd-aef2-483fd75cebe6",
+    "mrn": "SYN-042-0020",
+    "given_name": "Laura",
+    "family_name": "Schwarz",
+    "birth_date": "1954-03-21",
+    "sex": "female",
+    "ward": "3B",
+    "room": "325b"
+  },
+  {
+    "id": "ce54bdbd-1225-51d5-9d08-e44d9127d946",
+    "mrn": "SYN-042-0021",
+    "given_name": "Edward",
+    "family_name": "Weber",
+    "birth_date": "1987-06-02",
+    "sex": "male",
+    "ward": "3A",
+    "room": "306a"
+  },
+  {
+    "id": "1786b921-d1b4-57a3-ad7b-a3c8d007b025",
+    "mrn": "SYN-042-0022",
+    "given_name": "Arthur",
+    "family_name": "Becker",
+    "birth_date": "1991-09-27",
+    "sex": "male",
+    "ward": "3B",
+    "room": "326a"
+  },
+  {
+    "id": "a72fe319-0016-5f22-8b64-04b84c0e6fc6",
+    "mrn": "SYN-042-0023",
+    "given_name": "Michael",
+    "family_name": "Meier",
+    "birth_date": "1979-12-20",
+    "sex": "male",
+    "ward": "3A",
+    "room": "306b"
+  },
+  {
+    "id": "3f50e4c6-06de-50cf-a6ff-26a30d9bd648",
+    "mrn": "SYN-042-0024",
+    "given_name": "Lukas",
+    "family_name": "Turner",
+    "birth_date": "1949-09-14",
+    "sex": "male",
+    "ward": "3B",
+    "room": "326b"
+  },
+  {
+    "id": "c789adf6-6dcf-5c6f-bab6-0b87db711d35",
+    "mrn": "SYN-042-0025",
+    "given_name": "Oscar",
+    "family_name": "Koch",
+    "birth_date": "1991-06-03",
+    "sex": "male",
+    "ward": "3A",
+    "room": "307a"
+  },
+  {
+    "id": "5c038cca-e1d3-5c84-a6c6-25c8ce25a217",
+    "mrn": "SYN-042-0026",
+    "given_name": "Maria",
+    "family_name": "Bennett",
+    "birth_date": "1959-02-04",
+    "sex": "female",
+    "ward": "3B",
+    "room": "327a"
+  },
+  {
+    "id": "5a4e690a-bb4e-5963-a4fc-c03f16d9f11c",
+    "mrn": "SYN-042-0027",
+    "given_name": "Margaret",
+    "family_name": "Wolf",
+    "birth_date": "1998-12-06",
+    "sex": "female",
+    "ward": "3A",
+    "room": "307b"
+  },
+  {
+    "id": "287a9c19-54b3-5a5c-9c93-89e4a95f656f",
+    "mrn": "SYN-042-0028",
+    "given_name": "Eva",
+    "family_name": "Richter",
+    "birth_date": "1999-08-14",
+    "sex": "female",
+    "ward": "3B",
+    "room": "327b"
+  },
+  {
+    "id": "50925304-6117-55ba-846f-f0f624f2976d",
+    "mrn": "SYN-042-0029",
+    "given_name": "Clara",
+    "family_name": "Klein",
+    "birth_date": "1935-01-07",
+    "sex": "female",
+    "ward": "3A",
+    "room": "308a"
+  },
+  {
+    "id": "539f6abf-f8e1-5bae-b24d-3355f4881393",
+    "mrn": "SYN-042-0030",
+    "given_name": "Samuel",
+    "family_name": "Schwarz",
+    "birth_date": "1950-07-20",
+    "sex": "male",
+    "ward": "3B",
+    "room": "328a"
+  }
+]

@@ -1,0 +1,2209 @@
+[
+  {
+    "config": {
+      "provider": "fake",
+      "mode": "text",
+      "transcriber": "fake",
+      "model": "rule-based-v1",
+      "prompt_version": "extract_v1",
+      "cases": 40,
+      "dataset": "evals/data/cases_holdout.jsonl"
+    },
+    "summary": {
+      "cases": 40,
+      "errors": 0,
+      "perfect_cases": 30,
+      "vitals": {
+        "precision": 1.0,
+        "recall": 0.8526,
+        "f1": 0.9204,
+        "value_accuracy": 0.8421
+      },
+      "symptoms": {
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091
+      },
+      "medications": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "dose_route_accuracy": 1.0
+      },
+      "patient_match_accuracy": 1.0,
+      "alert_accuracy": 0.8421,
+      "abnormal_recall": 0.8235,
+      "implausible_kept_out": 1.0,
+      "wer": null,
+      "latency_ms": {
+        "avg": 3,
+        "p95": 4,
+        "llm_avg": 0
+      },
+      "tokens": {
+        "input": 23247,
+        "output": 3447
+      },
+      "cost_usd": {
+        "total": 0.0,
+        "per_note": 0.0
+      }
+    },
+    "by_tag": {
+      "ambiguous_name": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": 1.0,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1734,
+          "output": 278
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "colloquial": {
+        "cases": 8,
+        "errors": 0,
+        "perfect_cases": 1,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 0.4762,
+          "f1": 0.6452,
+          "value_accuracy": 0.4286
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 0.4286,
+        "abnormal_recall": 0.75,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 4642,
+          "output": 482
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "demo_example": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": 1.0,
+        "wer": null,
+        "latency_ms": {
+          "avg": 7,
+          "p95": 14,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1770,
+          "output": 430
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "distractor_numbers": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 4,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1747,
+          "output": 238
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "implausible_value": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": 1.0,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1734,
+          "output": 278
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "medications": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1745,
+          "output": 313
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "missing_values": {
+        "cases": 1,
+        "errors": 0,
+        "perfect_cases": 1,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 580,
+          "output": 76
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "misspoken_name": {
+        "cases": 1,
+        "errors": 0,
+        "perfect_cases": 1,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 576,
+          "output": 91
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "negation": {
+        "cases": 1,
+        "errors": 0,
+        "perfect_cases": 1,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 583,
+          "output": 82
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "numbers_as_words": {
+        "cases": 4,
+        "errors": 0,
+        "perfect_cases": 4,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 2,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 2333,
+          "output": 373
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "plain": {
+        "cases": 2,
+        "errors": 0,
+        "perfect_cases": 2,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 2,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1164,
+          "output": 228
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "self_correction": {
+        "cases": 8,
+        "errors": 0,
+        "perfect_cases": 6,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 0.8824,
+          "f1": 0.9375,
+          "value_accuracy": 0.8824
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 0.8824,
+        "abnormal_recall": 0.5,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 4662,
+          "output": 703
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "two_patients": {
+        "cases": 1,
+        "errors": 0,
+        "perfect_cases": 1,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 585,
+          "output": 85
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "units": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 2,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "value_accuracy": 0.8571
+        },
+        "symptoms": {
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "medications": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "dose_route_accuracy": null
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 0.8571,
+        "abnormal_recall": null,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 2,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1732,
+          "output": 246
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      }
+    },
+    "by_difficulty": {
+      "easy": {
+        "cases": 3,
+        "errors": 0,
+        "perfect_cases": 3,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "value_accuracy": 1.0
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 1.0,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 6,
+          "p95": 14,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 1763,
+          "output": 416
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "hard": {
+        "cases": 19,
+        "errors": 0,
+        "perfect_cases": 15,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 0.878,
+          "f1": 0.935,
+          "value_accuracy": 0.8537
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 0.8537,
+        "abnormal_recall": 1.0,
+        "implausible_kept_out": 1.0,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 4,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 11012,
+          "output": 1553
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      },
+      "medium": {
+        "cases": 18,
+        "errors": 0,
+        "perfect_cases": 12,
+        "vitals": {
+          "precision": 1.0,
+          "recall": 0.7857,
+          "f1": 0.88,
+          "value_accuracy": 0.7857
+        },
+        "symptoms": {
+          "precision": 1.0,
+          "recall": 0.6667,
+          "f1": 0.8
+        },
+        "medications": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "dose_route_accuracy": 1.0
+        },
+        "patient_match_accuracy": 1.0,
+        "alert_accuracy": 0.7857,
+        "abnormal_recall": 0.7273,
+        "implausible_kept_out": null,
+        "wer": null,
+        "latency_ms": {
+          "avg": 3,
+          "p95": 3,
+          "llm_avg": 0
+        },
+        "tokens": {
+          "input": 10472,
+          "output": 1478
+        },
+        "cost_usd": {
+          "total": 0.0,
+          "per_note": 0.0
+        }
+      }
+    },
+    "cases": [
+      {
+        "case_id": "holdout-001",
+        "tags": [
+          "demo_example"
+        ],
+        "difficulty": "easy",
+        "vital_tp": 4,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 4,
+        "vital_expected": 4,
+        "symptom_tp": 1,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 1,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 1,
+        "patient_ok": true,
+        "alert_ok": 4,
+        "alert_expected": 4,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 14,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 599,
+        "output_tokens": 188,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mrs. Anna Keller, blood pressure 150 over 90, pulse 88, temp thirty-seven point nine, complains of a headache, gave 500 mg paracetamol orally."
+      },
+      {
+        "case_id": "holdout-002",
+        "tags": [
+          "demo_example",
+          "implausible_value",
+          "ambiguous_name"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 3,
+        "abnormal_caught": 3,
+        "implausible_expected": 1,
+        "implausible_kept_out": 1,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 110,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mrs. Keller, BP 168/96, pulse 380, sats 91% on room air, denies chest pain."
+      },
+      {
+        "case_id": "holdout-003",
+        "tags": [
+          "demo_example",
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 4,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 4,
+        "vital_expected": 4,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 4,
+        "alert_expected": 4,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 587,
+        "output_tokens": 132,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mr. John Smith, pulse 72, BP 140 over 85, sorry, correction, 145 over 85, temperature 36.8."
+      },
+      {
+        "case_id": "holdout-004",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 0,
+        "vital_fp": 0,
+        "vital_fn": 2,
+        "vital_value_ok": 0,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 0,
+        "alert_expected": 2,
+        "abnormal_expected": 2,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 586,
+        "output_tokens": 34,
+        "error": null,
+        "diffs": [
+          "systolic_bp: missing (expected 150)",
+          "diastolic_bp: missing (expected 92)"
+        ],
+        "perfect": false,
+        "text": "Helen Koch, pressure 160 over 95, no wait, that was yesterday, 150 over 92 today."
+      },
+      {
+        "case_id": "holdout-005",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 578,
+        "output_tokens": 77,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "George Richter, heart rate 88, no sorry, 98, temp 37.0."
+      },
+      {
+        "case_id": "holdout-006",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 79,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Edward Fischer. Sats 93, scratch that, 95 percent. Resp rate 18."
+      },
+      {
+        "case_id": "holdout-007",
+        "tags": [
+          "self_correction",
+          "numbers_as_words"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 585,
+        "output_tokens": 104,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Irene Hartmann, blood pressure one thirty over eighty, I mean one forty over eighty."
+      },
+      {
+        "case_id": "holdout-008",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 1,
+        "vital_expected": 1,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 1,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 1,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 581,
+        "output_tokens": 60,
+        "error": null,
+        "diffs": [
+          "symptoms: expected ['nausea'], got []"
+        ],
+        "perfect": false,
+        "text": "Margaret Wolf, temp 38.2, let me correct that, 38.6. Feels sick."
+      },
+      {
+        "case_id": "holdout-009",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 113,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Olivia Krause, pulse 64, BP 118/70, actually the pulse was 74."
+      },
+      {
+        "case_id": "holdout-010",
+        "tags": [
+          "self_correction"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 1,
+        "vital_expected": 1,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 1,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 1,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 1,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 585,
+        "output_tokens": 104,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Oscar Koch, glucose 210, sorry, 120, gave 4 units insulin aspart subcutaneously."
+      },
+      {
+        "case_id": "holdout-011",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 3,
+        "vital_value_ok": 1,
+        "vital_expected": 4,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 4,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 583,
+        "output_tokens": 55,
+        "error": null,
+        "diffs": [
+          "systolic_bp: missing (expected 128)",
+          "diastolic_bp: missing (expected 76)",
+          "temperature: missing (expected 36.9)"
+        ],
+        "perfect": false,
+        "text": "Obs for Clara Klein: 128 over 76, heart rate 70, she's afebrile at 36.9."
+      },
+      {
+        "case_id": "holdout-012",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 2,
+        "abnormal_caught": 2,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 76,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Samuel Schwarz is running a temperature of 38.4, pulse is 104."
+      },
+      {
+        "case_id": "holdout-013",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 0,
+        "vital_fp": 0,
+        "vital_fn": 3,
+        "vital_value_ok": 0,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 0,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 576,
+        "output_tokens": 34,
+        "error": null,
+        "diffs": [
+          "systolic_bp: missing (expected 132)",
+          "diastolic_bp: missing (expected 78)",
+          "spo2: missing (expected 96)"
+        ],
+        "perfect": false,
+        "text": "Michael Meier, BP's 132 on 78, sat 96 on air."
+      },
+      {
+        "case_id": "holdout-014",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 2,
+        "vital_value_ok": 2,
+        "vital_expected": 4,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 4,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 75,
+        "error": null,
+        "diffs": [
+          "systolic_bp: missing (expected 110)",
+          "diastolic_bp: missing (expected 68)"
+        ],
+        "perfect": false,
+        "text": "Laura Schwarz, her pressure is 110 over 68 and pulse 66, breathing 16 a minute."
+      },
+      {
+        "case_id": "holdout-015",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 1,
+        "vital_value_ok": 1,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 579,
+        "output_tokens": 55,
+        "error": null,
+        "diffs": [
+          "heart_rate: missing (expected 72)"
+        ],
+        "perfect": false,
+        "text": "Sophie Zimmermann, 72 regular for the pulse, temperature 37.3."
+      },
+      {
+        "case_id": "holdout-016",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 1,
+        "vital_value_ok": 1,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 2,
+        "abnormal_expected": 2,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 581,
+        "output_tokens": 57,
+        "error": null,
+        "diffs": [
+          "spo2: missing (expected 92)"
+        ],
+        "perfect": false,
+        "text": "Arthur Becker, oxygen 92 percent on two litres, respirations 22."
+      },
+      {
+        "case_id": "holdout-017",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 1,
+        "vital_value_ok": 2,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 579,
+        "output_tokens": 75,
+        "error": null,
+        "diffs": [
+          "weight: missing (expected 82.4)"
+        ],
+        "perfect": false,
+        "text": "Edward Weber, weighed this morning, 82.4 kilos, BP 124/80."
+      },
+      {
+        "case_id": "holdout-018",
+        "tags": [
+          "colloquial"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 0,
+        "vital_expected": 1,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 0,
+        "alert_expected": 1,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 55,
+        "error": null,
+        "diffs": [
+          "blood_glucose: expected 98, got 65"
+        ],
+        "perfect": false,
+        "text": "Lukas Turner, sugar was 65 so gave him juice, rechecked at 98."
+      },
+      {
+        "case_id": "holdout-019",
+        "tags": [
+          "numbers_as_words"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 2,
+        "abnormal_caught": 2,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 113,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Maria Morgan, blood pressure one fifty-five over ninety-five, pulse ninety."
+      },
+      {
+        "case_id": "holdout-020",
+        "tags": [
+          "numbers_as_words"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 80,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Eva Richter, temperature thirty-eight point one, sats ninety-four percent."
+      },
+      {
+        "case_id": "holdout-021",
+        "tags": [
+          "numbers_as_words"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 76,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Alice Becker, temp thirty-six point nought, pulse fifty-eight."
+      },
+      {
+        "case_id": "holdout-022",
+        "tags": [
+          "units"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 1,
+        "vital_value_ok": 1,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 579,
+        "output_tokens": 75,
+        "error": null,
+        "diffs": [
+          "temperature: missing (expected 38)"
+        ],
+        "perfect": false,
+        "text": "Margaret Neumann, temperature 100.4 Fahrenheit, pulse 96."
+      },
+      {
+        "case_id": "holdout-023",
+        "tags": [
+          "units"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 576,
+        "output_tokens": 95,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Henry Hoffmann, weight 180 pounds, BP 138/84."
+      },
+      {
+        "case_id": "holdout-024",
+        "tags": [
+          "units"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 577,
+        "output_tokens": 76,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "George Lange, blood glucose 7.2 mmol, temp 36.6."
+      },
+      {
+        "case_id": "holdout-025",
+        "tags": [
+          "negation"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 1,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 583,
+        "output_tokens": 82,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Maria Wagner, BP 122/74, no headache, no nausea, but says she is dizzy."
+      },
+      {
+        "case_id": "holdout-026",
+        "tags": [
+          "distractor_numbers"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 585,
+        "output_tokens": 96,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Peter Braun in 321a, day 3 post-op, BP 134 over 82, pulse 76, pain 4 out of 10."
+      },
+      {
+        "case_id": "holdout-027",
+        "tags": [
+          "distractor_numbers"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 583,
+        "output_tokens": 70,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Hanna Keller, 2 hourly obs, temp 37.4, sats 97, drinking 1500 ml a day."
+      },
+      {
+        "case_id": "holdout-028",
+        "tags": [
+          "missing_values"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 76,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Jon Smyth, BP not done, he was asleep, pulse 68, sats 98."
+      },
+      {
+        "case_id": "holdout-029",
+        "tags": [
+          "distractor_numbers"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 579,
+        "output_tokens": 72,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Bed 304b, Edward Fischer, 78 years old, pulse 82, temp 36.7."
+      },
+      {
+        "case_id": "holdout-030",
+        "tags": [
+          "medications"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 1,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 1,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 1,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 117,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Alice Hartmann, given ondansetron 4 mg IV for nausea, BP 116/72."
+      },
+      {
+        "case_id": "holdout-031",
+        "tags": [
+          "medications"
+        ],
+        "difficulty": "medium",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 1,
+        "vital_expected": 1,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 1,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 1,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 1,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 581,
+        "output_tokens": 91,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "John Smith, metoprolol 25 mg by mouth with breakfast, pulse 61."
+      },
+      {
+        "case_id": "holdout-032",
+        "tags": [
+          "medications"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 1,
+        "vital_expected": 1,
+        "symptom_tp": 1,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 1,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 1,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 1,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 4,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 105,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Maria Bennett, two puffs of salbutamol inhaled, says she's breathless, sats 93."
+      },
+      {
+        "case_id": "holdout-033",
+        "tags": [
+          "implausible_value"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 1,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 1,
+        "vital_expected": 1,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 1,
+        "alert_expected": 1,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 1,
+        "implausible_kept_out": 1,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 575,
+        "output_tokens": 74,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Margaret Wolf, temperature 3.7, pulse 80."
+      },
+      {
+        "case_id": "holdout-034",
+        "tags": [
+          "implausible_value"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 1,
+        "implausible_kept_out": 1,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 575,
+        "output_tokens": 94,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Petra Braun, BP 1200 over 80, sats 97."
+      },
+      {
+        "case_id": "holdout-035",
+        "tags": [
+          "ambiguous_name"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 1,
+        "abnormal_caught": 1,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 577,
+        "output_tokens": 96,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mr. Koch in 307a, BP 142 over 88, pulse 79."
+      },
+      {
+        "case_id": "holdout-036",
+        "tags": [
+          "ambiguous_name"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 573,
+        "output_tokens": 72,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mr. Schwarz, temp 37.8, pulse 92."
+      },
+      {
+        "case_id": "holdout-037",
+        "tags": [
+          "two_patients"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 585,
+        "output_tokens": 85,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Clara Klein, sats 95, temp 36.8. Then Maria Wagner asked for water, nothing else."
+      },
+      {
+        "case_id": "holdout-038",
+        "tags": [
+          "misspoken_name"
+        ],
+        "difficulty": "hard",
+        "vital_tp": 3,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 3,
+        "vital_expected": 3,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 3,
+        "alert_expected": 3,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 576,
+        "output_tokens": 91,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Mrs. Hartman in 323a, BP 128/82, pulse 70."
+      },
+      {
+        "case_id": "holdout-039",
+        "tags": [
+          "plain"
+        ],
+        "difficulty": "easy",
+        "vital_tp": 6,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 6,
+        "vital_expected": 6,
+        "symptom_tp": 0,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 6,
+        "alert_expected": 6,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 3,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 584,
+        "output_tokens": 151,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Eva Richter, BP 119/77, pulse 71, temp 36.5, sats 98 percent, resp rate 15."
+      },
+      {
+        "case_id": "holdout-040",
+        "tags": [
+          "plain"
+        ],
+        "difficulty": "easy",
+        "vital_tp": 2,
+        "vital_fp": 0,
+        "vital_fn": 0,
+        "vital_value_ok": 2,
+        "vital_expected": 2,
+        "symptom_tp": 1,
+        "symptom_fp": 0,
+        "symptom_fn": 0,
+        "med_tp": 0,
+        "med_fp": 0,
+        "med_fn": 0,
+        "med_detail_ok": 0,
+        "patient_ok": true,
+        "alert_ok": 2,
+        "alert_expected": 2,
+        "abnormal_expected": 0,
+        "abnormal_caught": 0,
+        "implausible_expected": 0,
+        "implausible_kept_out": 0,
+        "wer": null,
+        "latency_ms": 2,
+        "llm_latency_ms": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 580,
+        "output_tokens": 77,
+        "error": null,
+        "diffs": [],
+        "perfect": true,
+        "text": "Henry Hoffmann, pulse 84, sats 95 percent, complains of a cough."
+      }
+    ]
+  }
+]
