@@ -164,7 +164,7 @@ Reports: [template](api/evals/reports/2026-11-11-fake-rule-based-v1-text.md) ·
   field; only one is a wrong value. The remaining misses stay unfixed on purpose: patching rules
   until the held-out set passes would make it a second training set.
 - **Every report records its provenance** (prompt hash, rules version, SDK versions, commit), and
-  the nightly run fails when a headline metric drops more than 2 p.p. against the committed
+  `make eval-gate` fails when a headline metric drops more than 2 p.p. against the committed
   baseline or the run exceeds its budget.
 - **The loop.** Every edit before Confirm is ground truth. The AI quality page shows the edit rate
   and the fields nurses correct; **Export as eval cases** turns them into
@@ -210,7 +210,7 @@ flowchart LR
 
 - **One origin.** The browser only talks to the web app; `/api/*` is proxied to FastAPI, so cookie
   auth needs no CORS and the API URL is read at runtime. TypeScript types are generated from the
-  OpenAPI schema and CI fails on drift.
+  OpenAPI schema and `make check` fails on drift.
 - **One error contract.** Every refusal is `{code, message, details}` with a closed `ErrorCode`
   enum in OpenAPI; the web app branches on the code, never on text.
 - **Layers.** API: `routes` parse and commit, `service` holds the use cases and audit events,
@@ -220,13 +220,13 @@ components}` over `shared/`, enforced by ESLint boundaries.
 - **Observability.** `X-Request-ID` on every response; JSON logs stamped with the request and note
   ids, step, model, tokens and cost.
 
-| Layer         | Stack                                                                                                                   |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Backend       | Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 · Alembic · uv                                                       |
-| AI & clinical | Anthropic and OpenAI SDKs · faster-whisper · rapidfuzz · Microsoft Presidio · fhir.resources · LOINC · UCUM             |
-| Frontend      | Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · TanStack Query · openapi-typescript                               |
-| Data          | PostgreSQL 18 (external) · HAPI FHIR R4 (validation)                                                                    |
-| Quality       | pytest + coverage gate · mypy strict · ruff · Vitest · ESLint · Playwright + axe · nightly evals with a regression gate |
+| Layer         | Stack                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| Backend       | Python 3.12 · FastAPI · Pydantic v2 · SQLAlchemy 2 · Alembic · uv                                               |
+| AI & clinical | Anthropic and OpenAI SDKs · faster-whisper · rapidfuzz · Microsoft Presidio · fhir.resources · LOINC · UCUM     |
+| Frontend      | Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · TanStack Query · openapi-typescript                       |
+| Data          | PostgreSQL 18 (external) · HAPI FHIR R4 (validation)                                                            |
+| Quality       | pytest + coverage gate · mypy strict · ruff · Vitest · ESLint · Playwright + axe · evals with a regression gate |
 
 ```
 api/src/carenote/   auth · patients · notes · pipeline · providers · contracts · alerts · fhir · audit · metrics · quality
@@ -239,7 +239,7 @@ web/tests/          Playwright + axe, fixtures with per-role storage state, page
 ## Development
 
 Docker, [uv](https://docs.astral.sh/uv/) and Node.js 22+. PostgreSQL is external: locally over an
-SSH tunnel (`make db-tunnel`, opened by `make up` and `make check`); CI has its own service.
+SSH tunnel (`make db-tunnel`, opened by `make up` and `make check`).
 
 ```bash
 make install        # uv sync + npm ci
@@ -272,4 +272,4 @@ Environment only (`CARENOTE_` prefix); `.env.example` has every variable.
 | `CARENOTE_LOGIN_RATE_LIMIT_PER_MINUTE`                                           | `60`                            | demo logins per client address                                 |
 | `POSTGRES_PASSWORD` / `APP_DB_PASSWORD`                                          | required                        | database owner / restricted app role                           |
 | `CARENOTE_DB_HOST` / `CARENOTE_DB_PORT`                                          | `host.docker.internal` / `5433` | where containers find PostgreSQL                               |
-| `CARENOTE_TEST_ADMIN_URL`                                                        | CI default                      | admin connection the backend tests use for throwaway databases |
+| `CARENOTE_TEST_ADMIN_URL`                                                        | local default                   | admin connection the backend tests use for throwaway databases |

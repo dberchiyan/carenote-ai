@@ -28,7 +28,7 @@ from carenote.seed import seed
 API_DIR = Path(__file__).resolve().parents[1]
 
 # Where to create the throwaway test database. Local developers set CARENOTE_TEST_ADMIN_URL in
-# .env (the external database, over the SSH tunnel); CI's Postgres service matches the default.
+# .env (the external database, over the SSH tunnel); the default suits a plain local Postgres.
 load_dotenv(API_DIR.parent / ".env")
 ADMIN_URL = os.environ.get(
     "CARENOTE_TEST_ADMIN_URL", "postgresql+psycopg://carenote:carenote@localhost:5432/postgres"
@@ -36,7 +36,7 @@ ADMIN_URL = os.environ.get(
 # One throwaway database per xdist worker (gw0, gw1, ...) so `pytest -n auto` runs in parallel.
 TEST_DB = "carenote_test_" + os.environ.get("PYTEST_XDIST_WORKER", "main")
 # The runtime role the API uses. The migrations grant to it by name, so tests must use the same
-# role; its password comes from the environment (.env locally, the CI default otherwise). Tests
+# role; its password comes from the environment (.env, else the default below). Tests
 # only ever CREATE it when missing: they never change a role the running app depends on.
 APP_ROLE = "carenote_app"
 APP_PASSWORD = os.environ.get("APP_DB_PASSWORD", "carenote_app")

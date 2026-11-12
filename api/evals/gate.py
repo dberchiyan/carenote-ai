@@ -5,7 +5,7 @@
 
 Compares the run with the same label (provider, model, mode, dataset) in both files. A metric
 that fell by more than `max_regression` (absolute, e.g. 0.02 = 2 percentage points) fails the
-gate; so does a run that cost more than the budget. Used by the nightly workflow so a prompt or
+gate; so does a run that cost more than the budget. Run after `make eval` so a prompt or
 model change cannot silently make extraction worse.
 """
 

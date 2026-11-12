@@ -41,7 +41,7 @@ wait: ## Wait until api, web and fhir answer
 check: check-api check-web types-check ## Run all linters, type checkers and unit tests
 
 # The database lives on osdb-prod and is reached through an SSH tunnel on 127.0.0.1:5433.
-# Containers reach the tunnel as host.docker.internal:5433. CI uses its own Postgres service.
+# Containers reach the tunnel as host.docker.internal:5433.
 DB_SSH_HOST ?= osdb-prod
 DB_PORT ?= 5433
 
@@ -56,10 +56,10 @@ db-tunnel-close: ## Close the SSH tunnel
 	@pkill -f "ssh -f -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -L $(DB_PORT):127.0.0.1:$(DB_PORT)" && echo "db tunnel closed" || echo "no tunnel"
 
 .PHONY: check-api
-check-api: db-tunnel check-api-ci ## ruff, mypy (strict), pytest (opens the db tunnel first)
+check-api: db-tunnel check-api-direct ## ruff, mypy (strict), pytest with coverage (opens the db tunnel first)
 
-.PHONY: check-api-ci
-check-api-ci: # backend checks without touching the tunnel (CI has a Postgres service)
+.PHONY: check-api-direct
+check-api-direct: # backend checks without touching the tunnel (a reachable database is assumed)
 	$(API) uv run ruff format --check .
 	$(API) uv run ruff check .
 	$(API) uv run mypy
