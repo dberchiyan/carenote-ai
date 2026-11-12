@@ -15,9 +15,13 @@ Saved as HL7 FHIR R4. Patient names never reach the AI.
 ![Whisper](https://img.shields.io/badge/ASR-Whisper_local-1F6F8B)
 ![HL7 FHIR](https://img.shields.io/badge/HL7_FHIR-R4-E8462B)
 
-[Quick start](#quick-start) · [Tour](#three-minute-tour) · [How it works](#how-it-works) ·
+[![Open the live demo](https://img.shields.io/badge/▶_Live_demo-carenote.osdb.io-0B6E69?style=for-the-badge)](https://carenote.osdb.io)
+
+No sign-up, no passwords: pick a person and follow the in-app guide.
+
+[Live demo](#live-demo) · [Tour](#three-minute-tour) · [How it works](#how-it-works) ·
 [AI quality](#ai-quality) · [Privacy](#privacy--security) · [Architecture](#architecture) ·
-[Development](#development)
+[Run it yourself](#run-it-yourself) · [Development](#development)
 
 Synthetic data only · not a medical device · no diagnosis or treatment advice
 
@@ -32,7 +36,37 @@ normalises units and flags abnormal values. The nurse sees every value linked to
 from, with hints where to look twice. **Nothing becomes clinical data until the nurse confirms**,
 and the AI never writes confirmed data.
 
-## Quick start
+## Live demo
+
+**https://carenote.osdb.io** runs the full product on synthetic data: local Whisper transcription,
+redaction, extraction, review, FHIR export and the audit log. Pick a person on the sign-in screen;
+a **Demo guide** in the top bar walks each role through four steps and ticks them as you go. No
+microphone? The recorder has a **sample recording**.
+
+| Person             | Role                  | Sees                                                     |
+| ------------------ | --------------------- | -------------------------------------------------------- |
+| **Nora Lindqvist** | Nurse, ward 3A        | her ward, her notes                                      |
+| **Carlos Mendes**  | Charge nurse, ward 3A | the ward's notes, LLM metrics, AI quality                |
+| **Aisha Rahman**   | Auditor               | audit log, metrics and quality for every ward, read-only |
+
+Notes are shared by everyone visiting the demo, and the ward history is reset from time to time.
+Extraction on the demo is the keyless rule-based model; see [AI quality](#ai-quality) for how it
+compares and how to switch to Claude.
+
+### Three-minute tour
+
+1. **Nora → Record note.** Speak (or use the sample recording), and the transcript appears before
+   you send: live on the device in Chrome, otherwise from the server in about a second. Or try **Type → "Self-correction"**:
+   _"140 over 85, sorry, correction, 145 over 85"_ becomes 145/85 with the hint
+   _Corrected while dictating: 140 → 145_.
+2. **"Implausible value".** Pulse 380 is kept out of the vitals and listed for review;
+   _"Mrs. Keller"_ asks you to choose between Anna and Hanna Keller.
+3. **Confirm → Open patient record.** Trend chart, observations, **Export FHIR**.
+4. **Carlos → AI quality.** The held-out eval with every failing case, and what nurses corrected in
+   the seeded week. **Export as eval cases** turns those corrections into a test set.
+5. **Aisha → Audit log.** Every edit, confirmation, rejection and export, with before and after.
+
+## Run it yourself
 
 Docker with Compose v2. No API keys: transcription (Whisper) and extraction (rule-based) run locally.
 
@@ -42,32 +76,12 @@ make up                # api, web, fhir; waits until healthy
 make seed-history      # demo users, 30 patients, a week of ward history
 ```
 
-Open **http://localhost:3000** and pick a person. No passwords.
+Open **http://localhost:3000**. Real LLM extraction: set `CARENOTE_LLM_PROVIDER=anthropic` and
+`CARENOTE_ANTHROPIC_API_KEY`.
 
-| Person             | Role                  | Sees                                                     |
-| ------------------ | --------------------- | -------------------------------------------------------- |
-| **Nora Lindqvist** | Nurse, ward 3A        | her ward, her notes                                      |
-| **Carlos Mendes**  | Charge nurse, ward 3A | the ward's notes, LLM metrics, AI quality                |
-| **Aisha Rahman**   | Auditor               | audit log, metrics and quality for every ward, read-only |
-
-Real LLM extraction: set `CARENOTE_LLM_PROVIDER=anthropic` and `CARENOTE_ANTHROPIC_API_KEY`.
-
-**Live demo:** https://carenote.osdb.io (synthetic data). It runs `docker-compose.prod.yml` on one
-host behind nginx and Cloudflare; `make deploy` ships the working tree there, `make deploy-logs`
-follows the logs and `make deploy-seed-history` resets the demo notes.
-
-### Three-minute tour
-
-1. **Nora → Record note.** Speak, and the transcript appears before you send: live on the device in
-   Chrome, otherwise from the server in about a second. Or try **Type → "Self-correction"**:
-   _"140 over 85, sorry, correction, 145 over 85"_ becomes 145/85 with the hint
-   _Corrected while dictating: 140 → 145_.
-2. **"Implausible value".** Pulse 380 is kept out of the vitals and listed for review;
-   _"Mrs. Keller"_ asks you to choose between Anna and Hanna Keller.
-3. **Confirm → Open patient record.** Trend chart, observations, **Export FHIR**.
-4. **Carlos → AI quality.** The held-out eval with every failing case, and what nurses corrected in
-   the seeded week. **Export as eval cases** turns those corrections into a test set.
-5. **Aisha → Audit log.** Every edit, confirmation, rejection and export, with before and after.
+**Deploying.** The live demo runs `docker-compose.prod.yml` (api and web on loopback ports) on one
+host behind nginx and Cloudflare. `make deploy` ships the working tree and restarts it,
+`make deploy-logs` follows the logs, `make deploy-seed-history` resets the demo notes.
 
 ## Features
 
