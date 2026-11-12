@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 
 import type { Flag } from "@/shared/api/types";
+import { clusterReadings } from "@/shared/lib/chart-cluster";
 import { xTickIndices } from "@/shared/lib/chart-ticks";
 import { formatDateTime } from "@/shared/lib/format";
 import { linear, niceTicks } from "@/shared/lib/scale";
@@ -13,6 +14,10 @@ export type TrendPoint = { at: string; value: number; flag: Flag };
 const W = 1000;
 const H = 300;
 const M = { top: 20, right: 88, bottom: 36, left: 48 };
+// Readings closer than this on the time axis are drawn as one point (with all of them in the tooltip).
+const MIN_GAP = 18;
+// A merged point lists its latest readings; the rest are summarised as a count and a range.
+const TOOLTIP_ROWS = 4;
 
 /** Shaped marker centred on its point, with a surface-coloured halo so the line stops at its edge. */
 function Marker({ flag, x, y, r }: { flag: Flag; x: number; y: number; r: number }) {
@@ -67,10 +72,14 @@ export function TrendChart({
   const yMax = ticks.at(-1) ?? hi;
   const y = linear([yMin, yMax], [H - M.bottom, M.top]);
   const x = linear([Math.min(...times), Math.max(...times)], [M.left + 16, W - M.right - 16]);
-  const dots = points.map((p, i) => ({ ...p, x: x(times[i] ?? 0), y: y(p.value) }));
+  const clusters = clusterReadings(
+    points.map((p, i) => ({ ...p, x: x(times[i] ?? 0) })),
+    MIN_GAP,
+  );
+  const dots = clusters.map((c) => ({ ...c, y: y(c.value) }));
   const path = dots.map((d, i) => `${i ? "L" : "M"}${d.x},${d.y}`).join(" ");
   const xTicks = xTickIndices(
-    times,
+    dots.map((d) => new Date(d.at).getTime()),
     dots.map((d) => d.x),
   );
   const hasBand = normal !== undefined && (normal.low !== undefined || normal.high !== undefined);
@@ -92,7 +101,7 @@ export function TrendChart({
   }
 
   const anchorFor = (i: number) =>
-    points.length === 1 ? "middle" : i === 0 ? "start" : i === points.length - 1 ? "end" : "middle";
+    dots.length === 1 ? "middle" : i === 0 ? "start" : i === dots.length - 1 ? "end" : "middle";
 
   return (
     <figure className="relative">
@@ -180,12 +189,30 @@ export function TrendChart({
             key={i}
             tabIndex={0}
             role="img"
-            aria-label={`${formatDateTime(d.at)}: ${d.value} ${unit}, ${FLAG_META[d.flag].label}`}
+            aria-label={
+              d.readings.length > 1
+                ? `${d.readings.length} readings around ${formatDateTime(d.at)}: ${d.readings
+                    .map((r) => `${r.value} ${unit} ${FLAG_META[r.flag].label}`)
+                    .join(", ")}`
+                : `${formatDateTime(d.at)}: ${d.value} ${unit}, ${FLAG_META[d.flag].label}`
+            }
             onFocus={() => setActive(i)}
             onBlur={() => setActive(null)}
             className="outline-none [&:focus-visible>circle:first-child]:stroke-[var(--chart-axis)]"
           >
             <circle cx={d.x} cy={d.y} r={12} fill="transparent" />
+            {d.readings.length > 1 && (
+              // A ring says "several readings here"; the tooltip lists them.
+              <circle
+                cx={d.x}
+                cy={d.y}
+                r={active === i ? 11 : 9.5}
+                fill="var(--chart-surface)"
+                stroke="var(--chart-series)"
+                strokeWidth={1.5}
+                strokeDasharray="2.5 2"
+              />
+            )}
             <Marker flag={d.flag} x={d.x} y={d.y} r={active === i ? 6 : 4.5} />
           </g>
         ))}
@@ -205,19 +232,56 @@ export function TrendChart({
       {current && (
         <div
           role="status"
-          className="border-line bg-surface shadow-lift pointer-events-none absolute top-2 w-44 rounded-xl border px-3 py-2 text-sm"
+          className="border-line bg-surface shadow-lift pointer-events-none absolute top-2 w-52 rounded-xl border px-3 py-2 text-sm"
           style={{
-            left: `clamp(0px, calc(${(current.x / W) * 100}% - 88px), calc(100% - 176px))`,
+            left: `clamp(0px, calc(${(current.x / W) * 100}% - 104px), calc(100% - 208px))`,
           }}
         >
-          <div className="font-semibold tabular-nums">
-            {current.value} {unit}
-          </div>
-          <div className="text-ink-2">{formatDateTime(current.at)}</div>
-          <div className="mt-1">
-            <span aria-hidden="true">{FLAG_META[current.flag].icon}</span>{" "}
-            {FLAG_META[current.flag].label}
-          </div>
+          {current.readings.length > 1 ? (
+            <>
+              <div className="text-ink-2 mb-1 text-xs">
+                {current.readings.length} readings · {formatDateTime(current.at)}
+              </div>
+              {current.readings.length > TOOLTIP_ROWS && (
+                <div className="text-ink mb-1 text-xs font-medium tabular-nums">
+                  Range {Math.min(...current.readings.map((r) => r.value))}–
+                  {Math.max(...current.readings.map((r) => r.value))} {unit}
+                </div>
+              )}
+              <ul className="flex flex-col gap-0.5">
+                {[...current.readings]
+                  .reverse()
+                  .slice(0, TOOLTIP_ROWS)
+                  .map((r) => (
+                    <li key={r.at + r.value} className="flex items-center justify-between gap-3">
+                      <span className="font-semibold tabular-nums">
+                        {r.value} <span className="text-ink-3 text-xs font-normal">{unit}</span>
+                      </span>
+                      <span className="text-ink-2 text-xs">
+                        <span aria-hidden="true">{FLAG_META[r.flag].icon}</span>{" "}
+                        {FLAG_META[r.flag].label}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+              {current.readings.length > TOOLTIP_ROWS && (
+                <div className="text-ink-3 mt-1 text-xs">
+                  +{current.readings.length - TOOLTIP_ROWS} earlier
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="font-semibold tabular-nums">
+                {current.value} {unit}
+              </div>
+              <div className="text-ink-2">{formatDateTime(current.at)}</div>
+              <div className="mt-1">
+                <span aria-hidden="true">{FLAG_META[current.flag].icon}</span>{" "}
+                {FLAG_META[current.flag].label}
+              </div>
+            </>
+          )}
         </div>
       )}
       <figcaption className="text-ink-2 mt-2 flex flex-wrap gap-4 text-xs">
