@@ -7,6 +7,13 @@ import { PillIcon, PlusIcon, XIcon } from "@/shared/ui/icons";
 import type { DraftEditor } from "./use-draft-editor";
 
 const ROUTES = ["oral", "iv", "subcutaneous", "inhaled", "intramuscular"];
+const ROUTE_LABELS: Record<string, string> = {
+  oral: "Oral",
+  iv: "Intravenous (IV)",
+  subcutaneous: "Subcutaneous",
+  inhaled: "Inhaled",
+  intramuscular: "Intramuscular",
+};
 
 export function MedicationsCard({
   payload,
@@ -49,17 +56,16 @@ export function MedicationsCard({
             />
             <Select
               aria-label={`Medication ${i + 1} route`}
+              title="Route"
+              placeholder="Route…"
               value={m.route ?? ""}
               disabled={!editable}
-              onChange={(e) => editor.medications.update(i, { route: e.target.value || null })}
-            >
-              <option value="">Route…</option>
-              {ROUTES.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </Select>
+              onChange={(r) => editor.medications.update(i, { route: r || null })}
+              options={[
+                { value: "", label: "Not recorded" },
+                ...ROUTES.map((r) => ({ value: r, label: ROUTE_LABELS[r] ?? r })),
+              ]}
+            />
             {editable && (
               <Button
                 variant="ghost"

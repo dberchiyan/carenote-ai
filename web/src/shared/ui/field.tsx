@@ -1,20 +1,26 @@
 "use client";
 
 import { forwardRef, useId, type ReactNode } from "react";
-import type { InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
-import { ChevronDownIcon, SearchIcon, XIcon } from "@/shared/ui/icons";
+import { SearchIcon, XIcon } from "@/shared/ui/icons";
+
+export { Select, type SelectOption } from "./select";
 
 /*
  * Form controls. One visual language for every input, select and textarea:
  * - 40px tall (36px `sm`), 10px radius, hover darkens the border, focus shows a 3px brand ring;
  * - `aria-invalid` turns the ring red; the message under the control is linked by id;
- * - selects are native (best keyboard and mobile behaviour) with our own chevron;
+ * - selects are our own listbox (select.tsx): popover on desktop, bottom sheet on phones;
  * - adornments (a unit, an icon) sit inside the control, never as a loose span next to it.
  */
 
 type Size = "md" | "sm";
-const SIZE: Record<Size, string> = { md: "min-h-10 text-sm", sm: "min-h-9 text-sm" };
+// 16px on phones: iOS zooms into any smaller control on focus.
+const SIZE: Record<Size, string> = {
+  md: "min-h-11 text-base sm:min-h-10 sm:text-sm",
+  sm: "min-h-10 text-base sm:min-h-9 sm:text-sm",
+};
 
 /** Label + control + hint/error. Wires ids and aria-describedby so nothing is announced twice. */
 export function Field({
@@ -105,34 +111,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
-type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> & {
-  size?: Size;
-  invalid?: boolean;
-};
-
-/** Native select with our chevron: keyboard, screen readers and mobile pickers all just work. */
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { size = "md", invalid, className = "", children, ...props },
-  ref,
-) {
-  return (
-    <span className="relative block">
-      <select
-        ref={ref}
-        aria-invalid={invalid || undefined}
-        className={`field ${SIZE[size]} cursor-pointer appearance-none pr-9 ${className}`}
-        {...props}
-      >
-        {children}
-      </select>
-      <ChevronDownIcon
-        size={15}
-        className="text-ink-3 pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
-      />
-    </span>
-  );
-});
-
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
@@ -143,7 +121,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     <textarea
       ref={ref}
       aria-invalid={invalid || undefined}
-      className={`field min-h-28 resize-y leading-relaxed ${className}`}
+      className={`field min-h-28 resize-y text-base leading-relaxed sm:text-sm ${className}`}
       {...props}
     />
   );

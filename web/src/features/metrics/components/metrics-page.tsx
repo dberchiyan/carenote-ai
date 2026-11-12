@@ -62,14 +62,12 @@ export function MetricsPage() {
             Period
             <Select
               size="sm"
-              className="w-auto"
-              value={days}
-              onChange={(e) => setDays(Number(e.target.value))}
-            >
-              <option value={7}>Last 7 days</option>
-              <option value={30}>Last 30 days</option>
-              <option value={90}>Last 90 days</option>
-            </Select>
+              title="Period"
+              className="w-40"
+              value={String(days)}
+              onChange={(d) => setDays(Number(d))}
+              options={[7, 30, 90].map((d) => ({ value: String(d), label: `Last ${d} days` }))}
+            />
           </label>
         }
       />
@@ -85,7 +83,7 @@ export function MetricsPage() {
       )}
       {data && data.total_extractions > 0 && (
         <>
-          <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             <Stat
               icon={<FileIcon size={16} />}
               label="Extractions"
@@ -150,7 +148,7 @@ export function MetricsPage() {
             </Card>
           </div>
           <Card className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-left text-sm">
+            <table className="w-full text-left text-sm md:min-w-[760px]">
               <caption className="px-5 pt-5 pb-3 text-left text-[15px] font-semibold">
                 By day and model
               </caption>
@@ -165,16 +163,16 @@ export function MetricsPage() {
                   <th scope="col" className="px-5 py-3 text-right font-medium">
                     Notes
                   </th>
-                  <th scope="col" className="px-5 py-3 text-right font-medium">
+                  <th scope="col" className="hidden px-5 py-3 text-right font-medium md:table-cell">
                     Input tokens
                   </th>
-                  <th scope="col" className="px-5 py-3 text-right font-medium">
+                  <th scope="col" className="hidden px-5 py-3 text-right font-medium md:table-cell">
                     Output tokens
                   </th>
                   <th scope="col" className="px-5 py-3 text-right font-medium">
                     Cost
                   </th>
-                  <th scope="col" className="px-5 py-3 text-right font-medium">
+                  <th scope="col" className="hidden px-5 py-3 text-right font-medium md:table-cell">
                     Avg / max latency
                   </th>
                 </tr>
@@ -198,14 +196,14 @@ export function MetricsPage() {
                       )}
                     </td>
                     <td className="px-5 py-3 text-right tabular-nums">{r.extractions}</td>
-                    <td className="px-5 py-3 text-right tabular-nums">
+                    <td className="hidden px-5 py-3 text-right tabular-nums md:table-cell">
                       {r.input_tokens.toLocaleString()}
                     </td>
-                    <td className="px-5 py-3 text-right tabular-nums">
+                    <td className="hidden px-5 py-3 text-right tabular-nums md:table-cell">
                       {r.output_tokens.toLocaleString()}
                     </td>
                     <td className="px-5 py-3 text-right tabular-nums">{usd(r.cost_usd)}</td>
-                    <td className="px-5 py-3 text-right tabular-nums">
+                    <td className="hidden px-5 py-3 text-right tabular-nums md:table-cell">
                       {Math.round(r.avg_latency_ms)} / {r.max_latency_ms} ms
                     </td>
                   </tr>

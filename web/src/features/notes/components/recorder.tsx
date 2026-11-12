@@ -343,7 +343,7 @@ export function Recorder({
         <p
           aria-live="polite"
           aria-label="Live transcript"
-          className="text-ink-2 min-h-12 max-w-lg text-center text-[15px] leading-relaxed"
+          className="text-ink-2 min-h-12 w-full max-w-lg text-center text-[15px] leading-relaxed"
         >
           {transcript || (
             <span className="text-ink-3">
@@ -355,7 +355,7 @@ export function Recorder({
       {speechError && (
         <p
           role="status"
-          className="max-w-md text-center text-xs text-amber-800 dark:text-amber-200"
+          className="w-full max-w-md text-center text-xs text-amber-800 dark:text-amber-200"
         >
           Live transcript stopped: {speechError}. You can type what you said after recording.
         </p>
@@ -363,7 +363,7 @@ export function Recorder({
       {!speechError && !(state.kind === "recorded" && preview.isPending) && (
         <p
           role="status"
-          className="text-ink-3 flex max-w-md items-center justify-center gap-1.5 text-center text-xs leading-relaxed"
+          className="text-ink-3 flex w-full max-w-md items-center justify-center gap-1.5 text-center text-xs leading-relaxed"
         >
           {speech === "available" ? (
             <>
@@ -389,31 +389,30 @@ export function Recorder({
         </p>
       )}
       {!recording && microphones.length > 1 && (
-        <label className="text-ink-2 flex items-center gap-2 text-sm">
-          Microphone
+        <label className="text-ink-2 flex w-full max-w-md items-center gap-2 text-sm">
+          <span className="shrink-0">Microphone</span>
           <Select
             size="sm"
-            className="w-auto max-w-xs"
-            value={deviceId}
-            onChange={(e) => setDeviceId(e.target.value)}
-          >
-            {microphones.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.label}
-              </option>
-            ))}
-          </Select>
+            title="Microphone"
+            className="min-w-0 flex-1"
+            value={deviceId || microphones[0]?.id}
+            onChange={setDeviceId}
+            options={microphones.map((m) => ({ value: m.id, label: m.label }))}
+          />
         </label>
       )}
       {permission === "denied" && state.kind !== "error" && (
-        <p role="alert" className="max-w-md text-center text-sm text-red-800 dark:text-red-200">
+        <p
+          role="alert"
+          className="w-full max-w-md text-center text-sm text-red-800 dark:text-red-200"
+        >
           {BLOCKED}
         </p>
       )}
       {state.kind === "recorded" && state.silent && (
         <div
           role="alert"
-          className="max-w-md rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:border-amber-500/40 dark:bg-amber-950/40 dark:text-amber-50"
+          className="w-full max-w-md rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:border-amber-500/40 dark:bg-amber-950/40 dark:text-amber-50"
         >
           <p className="font-semibold">No sound was picked up.</p>
           <p className="mt-1 leading-relaxed">
@@ -469,7 +468,10 @@ export function Recorder({
         </div>
       )}
       {state.kind === "error" && (
-        <p role="alert" className="max-w-sm text-center text-sm text-red-800 dark:text-red-200">
+        <p
+          role="alert"
+          className="w-full max-w-sm text-center text-sm text-red-800 dark:text-red-200"
+        >
           {state.message}
         </p>
       )}

@@ -95,16 +95,20 @@ export function PatientCard({
             {note.candidates.length ? "Or choose another patient on the ward" : "Patient"}
           </span>
           <Select
-            value={patientId ?? ""}
-            onChange={(e) => e.target.value && onSelect(e.target.value)}
-          >
-            <option value="">Select…</option>
-            {wardPatients?.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.family_name}, {p.given_name} — Room {p.room}
-              </option>
-            ))}
-          </Select>
+            title="Patient"
+            placeholder="Choose a patient…"
+            searchPlaceholder="Name, room or MRN"
+            searchable
+            disabled={!editable}
+            value={patientId}
+            onChange={onSelect}
+            options={(wardPatients ?? []).map((p) => ({
+              value: p.id,
+              label: `${p.family_name}, ${p.given_name}`,
+              description: `Room ${p.room} · ${p.mrn}`,
+              keywords: `${p.given_name} ${p.family_name} ${p.mrn}`,
+            }))}
+          />
         </label>
       </fieldset>
     </Card>

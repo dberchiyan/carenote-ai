@@ -8,6 +8,12 @@ import { AlertIcon, HeartPulseIcon, PlusIcon, UndoIcon, XIcon } from "@/shared/u
 
 import type { DraftEditor } from "./use-draft-editor";
 
+const VITAL_OPTIONS = VITAL_KINDS.map((k) => ({
+  value: k,
+  label: VITAL_LABELS[k].label,
+  hint: VITAL_LABELS[k].unit,
+}));
+
 export function VitalsCard({
   draft,
   payload,
@@ -39,20 +45,18 @@ export function VitalsCard({
           return (
             <li
               key={i}
-              className="bg-surface-2 ring-line grid grid-cols-[minmax(0,1fr)_8.5rem_auto] items-center gap-2 rounded-xl p-2 ring-1 ring-inset sm:grid-cols-[12rem_9rem_minmax(0,1fr)_auto]"
+              className="bg-surface-2 ring-line grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl p-2 ring-1 ring-inset sm:grid-cols-[12rem_9rem_minmax(0,1fr)_auto]"
             >
-              <Select
-                aria-label={`Vital ${i + 1} kind`}
-                value={v.kind}
-                disabled={!editable}
-                onChange={(e) => editor.vitals.setKind(i, e.target.value as VitalKind)}
-              >
-                {VITAL_KINDS.map((k) => (
-                  <option key={k} value={k}>
-                    {VITAL_LABELS[k].label}
-                  </option>
-                ))}
-              </Select>
+              <span className="col-start-1 row-start-1 min-w-0 sm:col-auto sm:row-auto">
+                <Select<VitalKind>
+                  aria-label={`Vital ${i + 1} kind`}
+                  title="Vital sign"
+                  value={v.kind}
+                  disabled={!editable}
+                  onChange={(k) => editor.vitals.setKind(i, k)}
+                  options={VITAL_OPTIONS}
+                />
+              </span>
               <Input
                 id={`input-vital-${i}`}
                 aria-label={`${VITAL_LABELS[v.kind].label} value`}
@@ -60,7 +64,7 @@ export function VitalsCard({
                 step="any"
                 inputMode="decimal"
                 suffix={VITAL_LABELS[v.kind].unit}
-                className="text-right font-semibold tabular-nums"
+                className="col-span-full text-right font-semibold tabular-nums sm:col-span-1"
                 value={Number.isNaN(v.value) ? "" : v.value}
                 disabled={!editable}
                 onFocus={() => editor.focusText(v.source_text)}
@@ -70,7 +74,7 @@ export function VitalsCard({
                 onChange={(e) => editor.vitals.update(i, { value: e.target.valueAsNumber })}
                 aria-describedby={hints.length > 0 ? `hint-vital-${i}` : undefined}
               />
-              <span className="col-span-full px-1 sm:col-span-1">
+              <span className="col-span-full px-1 sm:col-span-1 sm:col-start-3">
                 {changed || !flag ? (
                   <span className="text-ink-3 text-xs">Re-checked on save</span>
                 ) : (
@@ -83,7 +87,7 @@ export function VitalsCard({
                   size="sm"
                   aria-label={`Remove ${VITAL_LABELS[v.kind].label}`}
                   onClick={() => editor.vitals.remove(i)}
-                  className="row-start-1 sm:row-auto"
+                  className="col-start-2 row-start-1 justify-self-end sm:col-auto sm:row-auto"
                 >
                   <XIcon size={16} />
                 </Button>

@@ -70,9 +70,12 @@ test("the nurse can pick which microphone to use", async ({ as }) => {
   await recordTwoSeconds(page);
   const picker = page.getByRole("combobox", { name: "Microphone" });
   await expect(picker).toBeVisible();
-  const options = await picker.locator("option").allTextContents();
+  await picker.click();
+  const listed = page.getByRole("listbox", { name: "Microphone" }).getByRole("option");
+  const options = await listed.allTextContents();
   expect(options.length).toBeGreaterThan(1);
-  await picker.selectOption({ index: 1 });
+  await listed.nth(1).click();
+  await expect(picker).toHaveText(options[1] ?? "");
   await page.getByRole("button", { name: "Record again", exact: true }).click();
   await expect(page.getByText(`Microphone: ${options[1]}`)).toBeVisible();
   await page.getByRole("button", { name: "Stop" }).click();
@@ -82,6 +85,7 @@ test("the nurse can pick which microphone to use", async ({ as }) => {
 test("the nurse can type the transcript after recording and the draft is built from it", async ({
   as,
 }) => {
+  test.slow(); // Whisper runs on the API host; under a parallel run it can take a while
   const page = await as("nurse");
   // No on-device recognition under automation: the transcript box is still there to type into,
   // and the server uses it instead of transcribing (which, keyless, would be a sample sentence).

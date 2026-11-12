@@ -311,7 +311,52 @@
   animation: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dropdown popover, phone bottom sheet and its backdrop. */
+@utility animate-pop {
+  animation: pop 140ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility animate-sheet {
+  animation: sheet 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@utility animate-fade {
+  animation: fade 200ms ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .animate-pop,
+  .animate-sheet,
+  .animate-fade,
   .animate-pulse-ring,
   .animate-wave,
   .animate-rise,

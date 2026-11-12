@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
+const MOBILE_ROWS = 30;
+
 import { TrendChart } from "@/shared/charts/trend-chart";
 import { FlagBadge } from "@/shared/ui/flag-badge";
 import { Button } from "@/shared/ui/button";
@@ -22,6 +24,7 @@ export function PatientPage() {
   const { id } = useParams<{ id: string }>();
   const patient = usePatient(id);
   const [days, setDays] = useState(30);
+  const [showAll, setShowAll] = useState(false);
   const observations = useObservations(id, days);
   const rules = useRules();
   const [kind, setKind] = useState<VitalKind | null>(null);
@@ -139,7 +142,7 @@ export function PatientPage() {
 
       {latest.length > 0 && (
         <section aria-label="Latest values" className="mb-6">
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 xl:grid-cols-6">
             {latest.map(({ kind: k, row, count }) => {
               const flag = row && isFlag(row.flag) ? row.flag : "normal";
               const active = k === selected;
@@ -199,16 +202,16 @@ export function PatientPage() {
                 <span className="text-ink-2">Vital sign</span>
                 <Select
                   size="sm"
-                  className="w-auto"
+                  title="Vital sign"
+                  className="w-44"
                   value={selected}
-                  onChange={(e) => isVitalKind(e.target.value) && setKind(e.target.value)}
-                >
-                  {kinds.map((k) => (
-                    <option key={k} value={k}>
-                      {VITAL_LABELS[k].label}
-                    </option>
-                  ))}
-                </Select>
+                  onChange={(k) => setKind(k)}
+                  options={kinds.map((k) => ({
+                    value: k,
+                    label: VITAL_LABELS[k].label,
+                    hint: VITAL_LABELS[k].unit,
+                  }))}
+                />
               </label>
               <DaysSelect value={days} onChange={setDays} />
             </div>
@@ -230,7 +233,49 @@ export function PatientPage() {
       )}
 
       {observations.data && rows.length > 0 && (
-        <Card className="overflow-x-auto">
+        <section aria-label="Confirmed observations" className="md:hidden">
+          <h2 className="mb-2 text-[15px] font-semibold">
+            Confirmed observations
+            <span className="text-ink-3 ml-2 text-xs font-normal">last {days} days</span>
+          </h2>
+          <ul className="card divide-line divide-y">
+            {[...rows]
+              .reverse()
+              .slice(0, showAll ? rows.length : MOBILE_ROWS)
+              .map((o) => (
+                <li key={o.id} className="flex items-center gap-3 px-4 py-3">
+                  <span className="min-w-0 flex-1">
+                    <span className="text-ink block text-sm font-medium">
+                      {isVitalKind(o.kind) ? VITAL_LABELS[o.kind].label : o.kind}
+                    </span>
+                    <span className="text-ink-3 block text-xs">
+                      {formatDateTime(o.effective_at)}
+                    </span>
+                  </span>
+                  <span className="text-ink text-right font-semibold tabular-nums">
+                    {o.value}
+                    <span className="text-ink-3 ml-1 text-xs font-normal">
+                      {isVitalKind(o.kind) ? VITAL_LABELS[o.kind].unit : o.unit}
+                    </span>
+                  </span>
+                  {isFlag(o.flag) && o.flag !== "normal" && <FlagBadge flag={o.flag} compact />}
+                </li>
+              ))}
+          </ul>
+          {rows.length > MOBILE_ROWS && !showAll && (
+            <Button
+              variant="secondary"
+              size="sm"
+              className="mt-3 w-full"
+              onClick={() => setShowAll(true)}
+            >
+              Show all {rows.length}
+            </Button>
+          )}
+        </section>
+      )}
+      {observations.data && rows.length > 0 && (
+        <Card className="hidden overflow-x-auto md:block">
           <table className="w-full min-w-[640px] text-left text-sm">
             <caption className="px-5 pt-5 pb-3 text-left text-[15px] font-semibold">
               Confirmed observations
@@ -291,16 +336,12 @@ function DaysSelect({ value, onChange }: { value: number; onChange: (days: numbe
       <span className="text-ink-2">Period</span>
       <Select
         size="sm"
-        className="w-auto"
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-      >
-        {WINDOWS.map((d) => (
-          <option key={d} value={d}>
-            Last {d} days
-          </option>
-        ))}
-      </Select>
+        title="Period"
+        className="w-40"
+        value={String(value)}
+        onChange={(d) => onChange(Number(d))}
+        options={WINDOWS.map((d) => ({ value: String(d), label: `Last ${d} days` }))}
+      />
     </label>
   );
 }

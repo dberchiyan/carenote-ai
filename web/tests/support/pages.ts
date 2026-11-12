@@ -75,7 +75,10 @@ export class AuditPage {
     await this.page.getByLabel("Entity ID").fill(id);
   }
   async filterByAction(action: string) {
-    await this.page.getByLabel("Action").selectOption(action);
+    await this.page.getByRole("combobox", { name: "Action" }).click();
+    await this.page
+      .getByRole("option", { name: new RegExp(`^${action.replace(".", "\\.")}\\b`) })
+      .click();
   }
 }
 
