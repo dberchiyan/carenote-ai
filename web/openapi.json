@@ -955,6 +955,146 @@
         "title": "FieldStatsOut",
         "type": "object"
       },
+      "HandoverOut": {
+        "properties": {
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Counts",
+            "type": "object"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "patients": {
+            "items": {
+              "$ref": "#/components/schemas/HandoverPatientOut"
+            },
+            "title": "Patients",
+            "type": "array"
+          },
+          "since": {
+            "format": "date-time",
+            "title": "Since",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "unassigned_drafts": {
+            "title": "Unassigned Drafts",
+            "type": "integer"
+          },
+          "until": {
+            "format": "date-time",
+            "title": "Until",
+            "type": "string"
+          },
+          "ward": {
+            "title": "Ward",
+            "type": "string"
+          },
+          "written_by": {
+            "title": "Written By",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ward",
+          "hours",
+          "since",
+          "until",
+          "summary",
+          "written_by",
+          "counts",
+          "unassigned_drafts",
+          "patients"
+        ],
+        "title": "HandoverOut",
+        "type": "object"
+      },
+      "HandoverPatientOut": {
+        "properties": {
+          "family_name": {
+            "title": "Family Name",
+            "type": "string"
+          },
+          "given_name": {
+            "title": "Given Name",
+            "type": "string"
+          },
+          "medications": {
+            "items": {
+              "$ref": "#/components/schemas/MedicationFact"
+            },
+            "title": "Medications",
+            "type": "array"
+          },
+          "notes_confirmed": {
+            "title": "Notes Confirmed",
+            "type": "integer"
+          },
+          "open_drafts": {
+            "title": "Open Drafts",
+            "type": "integer"
+          },
+          "patient_id": {
+            "format": "uuid",
+            "title": "Patient Id",
+            "type": "string"
+          },
+          "priority": {
+            "enum": [
+              "critical",
+              "warning",
+              "review",
+              "stable"
+            ],
+            "title": "Priority",
+            "type": "string"
+          },
+          "room": {
+            "title": "Room",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symptoms",
+            "type": "array"
+          },
+          "vitals": {
+            "items": {
+              "$ref": "#/components/schemas/VitalFact"
+            },
+            "title": "Vitals",
+            "type": "array"
+          }
+        },
+        "required": [
+          "patient_id",
+          "given_name",
+          "family_name",
+          "room",
+          "priority",
+          "summary",
+          "vitals",
+          "symptoms",
+          "medications",
+          "notes_confirmed",
+          "open_drafts"
+        ],
+        "title": "HandoverPatientOut",
+        "type": "object"
+      },
       "LatestVitalOut": {
         "properties": {
           "effective_at": {
@@ -1100,6 +1240,43 @@
           "source_text"
         ],
         "title": "Medication",
+        "type": "object"
+      },
+      "MedicationFact": {
+        "properties": {
+          "dose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dose"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "route": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route"
+          }
+        },
+        "required": [
+          "name",
+          "dose",
+          "route"
+        ],
+        "title": "MedicationFact",
         "type": "object"
       },
       "NoteOut": {
@@ -1851,6 +2028,79 @@
         "title": "Vital",
         "type": "object"
       },
+      "VitalFact": {
+        "properties": {
+          "change": {
+            "enum": [
+              "first",
+              "new_flag",
+              "worse",
+              "better",
+              "same"
+            ],
+            "title": "Change",
+            "type": "string"
+          },
+          "flag": {
+            "enum": [
+              "normal",
+              "warning",
+              "critical"
+            ],
+            "title": "Flag",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "previous": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Latest value before this shift, if any.",
+            "title": "Previous"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "worst_in_shift": {
+            "enum": [
+              "normal",
+              "warning",
+              "critical"
+            ],
+            "title": "Worst In Shift",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "kind",
+          "value",
+          "unit",
+          "flag",
+          "previous",
+          "change",
+          "worst_in_shift"
+        ],
+        "title": "VitalFact",
+        "type": "object"
+      },
       "WardPatientOut": {
         "properties": {
           "birth_date": {
@@ -2316,6 +2566,68 @@
         "summary": "Me",
         "tags": [
           "auth"
+        ]
+      }
+    },
+    "/handover": {
+      "get": {
+        "description": "The last `hours` on the caller's ward: flagged patients first, then drafts to review,\nthen stable ones. Built from confirmed observations only. Audited.",
+        "operationId": "shift_handover_handover_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "hours",
+            "required": false,
+            "schema": {
+              "default": 12,
+              "maximum": 48,
+              "minimum": 4,
+              "title": "Hours",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "carenote_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Carenote Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HandoverOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        },
+        "summary": "Shift Handover",
+        "tags": [
+          "handover"
         ]
       }
     },

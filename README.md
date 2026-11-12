@@ -61,7 +61,9 @@ compares and how to switch to Claude.
    _Corrected while dictating: 140 → 145_.
 2. **"Implausible value".** Pulse 380 is kept out of the vitals and listed for review;
    _"Mrs. Keller"_ asks you to choose between Anna and Hanna Keller.
-3. **Confirm → Open patient record.** Trend chart, observations, **Export FHIR**.
+3. **Confirm → Open patient record.** Trend chart, observations, **Export FHIR**. Then
+   **Handover**: the ward's shift summary, flagged patients first, with what changed since the
+   last shift.
 4. **Carlos → AI quality.** The held-out eval with every failing case, and what nurses corrected in
    the seeded week. **Export as eval cases** turns those corrections into a test set.
 5. **Aisha → Audit log.** Every edit, confirmation, rejection and export, with before and after.
@@ -85,15 +87,16 @@ host behind nginx and Cloudflare. `make deploy` ships the working tree and resta
 
 ## Features
 
-|                                                                                       | Nurse | Charge nurse |  Auditor  |
-| ------------------------------------------------------------------------------------- | :---: | :----------: | :-------: |
-| **Ward:** latest vitals, flags, open drafts, search (`/`), flagged-only filter        |  ✅   |      ✅      |     —     |
-| **Record:** mic with level meter and device picker, live transcript, upload, type     |  ✅   |      ✅      |     —     |
-| **Review:** source highlighting, hints, patient choice, edit, confirm, reject         |  ✅   |      ✅      |     —     |
-| **Patient record:** trend per vital, observations, FHIR R4 export                     |  ✅   |      ✅      | read-only |
-| **LLM metrics:** tokens, cost (extraction + transcription), latency per day and model |   —   |   own ward   |    ✅     |
-| **AI quality:** offline evals, nurse corrections, export as eval cases                |   —   |   own ward   |    ✅     |
-| **Audit log:** every change with before/after, filters in the URL                     |   —   |      —       |    ✅     |
+|                                                                                                                   | Nurse | Charge nurse |  Auditor  |
+| ----------------------------------------------------------------------------------------------------------------- | :---: | :----------: | :-------: |
+| **Ward:** latest vitals, flags, open drafts, search (`/`), flagged-only filter                                    |  ✅   |      ✅      |     —     |
+| **Record:** mic with level meter and device picker, live transcript, upload, type                                 |  ✅   |      ✅      |     —     |
+| **Review:** source highlighting, hints, patient choice, edit, confirm, reject                                     |  ✅   |      ✅      |     —     |
+| **Shift handover:** flagged patients first, changes since the last shift, symptoms and medications, copy or print |  ✅   |      ✅      |     —     |
+| **Patient record:** trend per vital, observations, FHIR R4 export                                                 |  ✅   |      ✅      | read-only |
+| **LLM metrics:** tokens, cost (extraction + transcription), latency per day and model                             |   —   |   own ward   |    ✅     |
+| **AI quality:** offline evals, nurse corrections, export as eval cases                                            |   —   |   own ward   |    ✅     |
+| **Audit log:** every change with before/after, filters in the URL                                                 |   —   |      —       |    ✅     |
 
 Light, dark and system themes. On phones and tablets the navigation is a bottom tab bar and every
 table becomes a card list; WCAG 2.1 AA is checked with axe in the end-to-end tests.

@@ -135,6 +135,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/handover": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Shift Handover
+         * @description The last `hours` on the caller's ward: flagged patients first, then drafts to review,
+         *     then stable ones. Built from confirmed observations only. Audited.
+         */
+        get: operations["shift_handover_handover_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health/live": {
         parameters: {
             query?: never;
@@ -824,6 +845,66 @@ export interface components {
             /** Total */
             total: number;
         };
+        /** HandoverOut */
+        HandoverOut: {
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+            /** Hours */
+            hours: number;
+            /** Patients */
+            patients: components["schemas"]["HandoverPatientOut"][];
+            /**
+             * Since
+             * Format: date-time
+             */
+            since: string;
+            /** Summary */
+            summary: string;
+            /** Unassigned Drafts */
+            unassigned_drafts: number;
+            /**
+             * Until
+             * Format: date-time
+             */
+            until: string;
+            /** Ward */
+            ward: string;
+            /** Written By */
+            written_by: string;
+        };
+        /** HandoverPatientOut */
+        HandoverPatientOut: {
+            /** Family Name */
+            family_name: string;
+            /** Given Name */
+            given_name: string;
+            /** Medications */
+            medications: components["schemas"]["MedicationFact"][];
+            /** Notes Confirmed */
+            notes_confirmed: number;
+            /** Open Drafts */
+            open_drafts: number;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /**
+             * Priority
+             * @enum {string}
+             */
+            priority: "critical" | "warning" | "review" | "stable";
+            /** Room */
+            room: string;
+            /** Summary */
+            summary: string;
+            /** Symptoms */
+            symptoms: string[];
+            /** Vitals */
+            vitals: components["schemas"]["VitalFact"][];
+        };
         /** LatestVitalOut */
         LatestVitalOut: {
             /**
@@ -876,6 +957,15 @@ export interface components {
             route: string | null;
             /** Source Text */
             source_text: string;
+        };
+        /** MedicationFact */
+        MedicationFact: {
+            /** Dose */
+            dose: string | null;
+            /** Name */
+            name: string;
+            /** Route */
+            route: string | null;
         };
         /** NoteOut */
         NoteOut: {
@@ -1154,6 +1244,37 @@ export interface components {
             /** Value */
             value: number;
         };
+        /** VitalFact */
+        VitalFact: {
+            /**
+             * Change
+             * @enum {string}
+             */
+            change: "first" | "new_flag" | "worse" | "better" | "same";
+            /**
+             * Flag
+             * @enum {string}
+             */
+            flag: "normal" | "warning" | "critical";
+            /** Kind */
+            kind: string;
+            /** Label */
+            label: string;
+            /**
+             * Previous
+             * @description Latest value before this shift, if any.
+             */
+            previous: number | null;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number;
+            /**
+             * Worst In Shift
+             * @enum {string}
+             */
+            worst_in_shift: "normal" | "warning" | "critical";
+        };
         /** WardPatientOut */
         WardPatientOut: {
             /**
@@ -1400,6 +1521,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserOut"];
+                };
+            };
+            /** @description Error */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    shift_handover_handover_get: {
+        parameters: {
+            query?: {
+                hours?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                carenote_session?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HandoverOut"];
                 };
             };
             /** @description Error */

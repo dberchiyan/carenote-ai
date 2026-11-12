@@ -15,6 +15,7 @@ from carenote.audit.routes import router as audit_router
 from carenote.auth.routes import router as auth_router
 from carenote.config import get_settings
 from carenote.fhir.routes import router as fhir_router
+from carenote.handover.routes import router as handover_router
 from carenote.health.routes import router as health_router
 from carenote.metrics.routes import router as metrics_router
 from carenote.notes.routes import router as notes_router
@@ -64,6 +65,7 @@ def create_app() -> FastAPI:
     app.include_router(metrics_router)
     app.include_router(alerts_router)
     app.include_router(quality_router)
+    app.include_router(handover_router)
     errors.install(app)
 
     def openapi() -> dict[str, Any]:

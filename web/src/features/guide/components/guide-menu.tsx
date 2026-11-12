@@ -75,6 +75,7 @@ export function GuideMenu({ user, onSwitchRole }: { user: User; onSwitchRole: ()
   // First visit for this viewer: introduce the guide once.
   useEffect(() => {
     // Automated browsers (end-to-end tests) start closed so the panel never covers what they click.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- opens once, after storage is read
     if (firstVisit() && !navigator.webdriver) setOpen(true);
   }, [firstVisit]);
 

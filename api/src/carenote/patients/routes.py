@@ -4,6 +4,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import distinct_on
 
 from carenote.auth.deps import CurrentUser, DbSession, current_user, ensure_ward_access
 from carenote.auth.models import Role
@@ -43,7 +44,7 @@ def _with_latest(session: DbSession, patients: list[Patient]) -> list[WardPatien
     latest: dict[tuple[str, str], ConfirmedObservation] = {}
     observations = session.scalars(
         select(ConfirmedObservation)
-        .distinct(ConfirmedObservation.patient_id, ConfirmedObservation.kind)
+        .ext(distinct_on(ConfirmedObservation.patient_id, ConfirmedObservation.kind))
         .where(ConfirmedObservation.patient_id.in_(ids))
         .order_by(
             ConfirmedObservation.patient_id,

@@ -10,6 +10,7 @@ import { homeFor, ROLE_LABELS, useLogout, useMe } from "@/features/auth/hooks";
 
 import {
   ChartIcon,
+  ClipboardIcon,
   LockIcon,
   LogoMark,
   MicIcon,
@@ -26,6 +27,12 @@ import { UserMenu } from "./user-menu";
 const NAV: { href: string; label: string; roles: Role[]; icon: ReactNode }[] = [
   { href: "/ward", label: "Ward", roles: ["nurse", "charge_nurse"], icon: <WardIcon /> },
   { href: "/notes/new", label: "Record note", roles: ["nurse", "charge_nurse"], icon: <MicIcon /> },
+  {
+    href: "/handover",
+    label: "Handover",
+    roles: ["nurse", "charge_nurse"],
+    icon: <ClipboardIcon />,
+  },
   {
     href: "/metrics",
     label: "LLM metrics",
@@ -107,7 +114,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Sidebar on desktop. Phones and tablets get a bottom tab bar instead (below). */}
       <header
-        className={`bg-nav text-nav-ink lg:border-nav-line z-30 hidden shrink-0 flex-col motion-reduce:transition-none lg:sticky lg:top-0 lg:flex lg:h-dvh lg:border-r lg:transition-[width] lg:duration-200 ${
+        className={`bg-nav text-nav-ink lg:border-nav-line z-30 hidden shrink-0 flex-col motion-reduce:transition-none lg:sticky lg:top-0 lg:flex lg:h-dvh lg:border-r lg:transition-[width] lg:duration-200 print:!hidden ${
           collapsed ? "lg:w-[76px]" : "lg:w-64"
         }`}
       >
@@ -210,8 +217,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Same container as <main>, so the badge and the account menu sit on the content's edges. */}
-        <div className="border-line bg-surface/80 sticky top-0 z-20 border-b backdrop-blur">
-          <div className="mx-auto flex w-full max-w-[1560px] items-center justify-between gap-3 px-4 py-2 sm:px-5 lg:px-10">
+        <div className="border-line bg-surface sticky top-0 z-20 border-b print:hidden">
+          <div className="mx-auto flex h-(--topbar) w-full max-w-[1560px] items-center justify-between gap-3 px-4 sm:px-5 lg:px-10">
             <Link
               href="/"
               aria-label="CareNote AI home"
@@ -225,7 +232,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="text-ink-2 flex items-center gap-2 text-xs font-medium">
               <span
                 aria-hidden="true"
-                className="inline-block size-1.5 rounded-full bg-amber-500 shadow-[0_0_0_3px_rgb(245_158_11/0.18)]"
+                className="bg-warn inline-block size-1.5 rounded-full shadow-[0_0_0_3px_color-mix(in_oklab,var(--warn)_25%,transparent)]"
               />
               <span className="hidden lg:inline">Demo environment — synthetic data only</span>
               <span className="hidden sm:inline lg:hidden">Demo · synthetic data</span>
@@ -271,7 +278,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {/* Bottom tab bar: thumb reach on a phone, one tap to every area the role has. */}
         <nav
           aria-label="Main"
-          className="border-line bg-surface/95 fixed inset-x-0 bottom-0 z-30 border-t pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
+          className="border-line bg-surface/95 fixed inset-x-0 bottom-0 z-30 border-t pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden print:hidden"
         >
           <ul className="mx-auto flex max-w-xl items-stretch">
             {items.map((item) => {
