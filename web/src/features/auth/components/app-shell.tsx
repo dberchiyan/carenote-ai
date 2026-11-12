@@ -19,6 +19,8 @@ import {
   WardIcon,
 } from "@/shared/ui/icons";
 import { ErrorState, Loading } from "@/shared/ui/states";
+import { GuideMenu } from "@/features/guide/components/guide-menu";
+
 import { UserMenu } from "./user-menu";
 
 const NAV: { href: string; label: string; roles: Role[]; icon: ReactNode }[] = [
@@ -229,7 +231,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="hidden sm:inline lg:hidden">Demo · synthetic data</span>
               <span className="sr-only sm:hidden">Demo environment, synthetic data only</span>
             </p>
-            <UserMenu user={user} onSignOut={signOut} />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <GuideMenu user={user} onSwitchRole={signOut} />
+              <UserMenu user={user} onSignOut={signOut} />
+            </div>
           </div>
         </div>
         <main

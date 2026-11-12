@@ -1,3 +1,4 @@
+import { useId } from "react";
 import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
@@ -213,15 +214,18 @@ export const CopyIcon = (p: IconProps) => (
   </Icon>
 );
 export function LogoMark({ size = 32 }: { size?: number }) {
+  // A unique gradient id per instance: with a shared id, a copy inside a hidden subtree (the
+  // desktop sidebar on a phone) owns the gradient and every visible copy renders empty.
+  const gradient = `cn-logo-${useId().replace(/:/g, "")}`;
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
       <defs>
-        <linearGradient id="cn-logo" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradient} x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#2dd4bf" />
           <stop offset="1" stopColor="#0b6e69" />
         </linearGradient>
       </defs>
-      <rect width="32" height="32" rx="9" fill="url(#cn-logo)" />
+      <rect width="32" height="32" rx="9" fill={`url(#${gradient})`} />
       <path
         d="M7 16h2.5M12 12v8M16 9v14M20 13v6"
         stroke="#fff"

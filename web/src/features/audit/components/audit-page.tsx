@@ -13,6 +13,7 @@ import type { AuditEvent } from "@/shared/api/types";
 import { formatDateTime, formatRelative } from "@/shared/lib/format";
 import { useUrlState } from "@/shared/lib/use-url-state";
 import { useAuditActions, useAuditEvents } from "@/features/audit/hooks";
+import { markGuideStep } from "@/features/guide/hooks";
 import { usePageTitle } from "@/shared/lib/use-page-title";
 
 const ENTITIES: SelectOption[] = [
@@ -214,7 +215,10 @@ export function AuditPage() {
   const actions = useAuditActions();
   // One change open at a time, shown full width under its row so the columns never move.
   const [openId, setOpenId] = useState<string | null>(null);
-  const toggle = (id: string) => setOpenId((current) => (current === id ? null : id));
+  const toggle = (id: string) => {
+    if (openId !== id) markGuideStep("audit-change-opened");
+    setOpenId((current) => (current === id ? null : id));
+  };
   const filter = (next: { entity?: string; entityId?: string; action?: string }) =>
     setParams({ entity: next.entity, entity_id: next.entityId, action: next.action, offset: null });
   const setOffset = (value: number) => setParams({ offset: value });

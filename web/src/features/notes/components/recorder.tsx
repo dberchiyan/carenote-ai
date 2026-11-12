@@ -9,13 +9,12 @@ import {
   type LiveTranscript,
   type SpeechSupport,
 } from "@/features/notes/lib/speech";
-import { CheckIcon } from "@/shared/ui/icons";
 
 import { useTranscribePreview } from "@/features/notes/hooks";
 import { ApiError } from "@/shared/api/errors";
 import { Button } from "@/shared/ui/button";
 import { Select, Textarea } from "@/shared/ui/field";
-import { MicIcon, StopIcon } from "@/shared/ui/icons";
+import { CheckIcon, MicIcon, SparkIcon, StopIcon } from "@/shared/ui/icons";
 
 const MAX_SECONDS = 120;
 // Relative bar heights; the live input level scales them, so the nurse sees the mic hears her.
@@ -187,6 +186,44 @@ export function Recorder({
     [],
   );
 
+  /** After a take (recorded or the sample): keep the audio and get its transcript. */
+  function finishTake(
+    blob: Blob,
+    seconds: number,
+    silent: boolean,
+    device: string,
+    heardText = "",
+  ) {
+    setState({ kind: "recorded", blob, url: URL.createObjectURL(blob), seconds, silent, device });
+    if (heardText.trim()) {
+      setSource("device");
+    } else if (!silent) {
+      setSource(null);
+      preview.mutate(blob, {
+        onSuccess: (result) => {
+          setTranscript(result.text);
+          setSource("server");
+        },
+      });
+    }
+  }
+
+  /** No microphone (a laptop in a meeting room, a locked-down browser): use a synthetic take. */
+  async function loadSample() {
+    try {
+      const response = await fetch("/samples/ward-round.wav");
+      if (!response.ok) throw new Error(String(response.status));
+      const blob = new Blob([await response.arrayBuffer()], { type: "audio/wav" });
+      setTranscript("");
+      setHeard(false);
+      setSpeechError(null);
+      preview.reset();
+      finishTake(blob, 5, false, "Sample recording (synthetic)");
+    } catch {
+      setState({ kind: "error", message: "The sample recording could not be loaded." });
+    }
+  }
+
   async function start() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -220,26 +257,7 @@ export function Recorder({
           setTranscript(heardText);
         }
         const blob = new Blob(chunks, { type: rec.mimeType.split(";")[0] });
-        const silent = peak < SILENCE_RMS;
-        setState({
-          kind: "recorded",
-          blob,
-          url: URL.createObjectURL(blob),
-          seconds,
-          silent,
-          device,
-        });
-        if (heardText.trim()) {
-          setSource("device");
-        } else if (!silent) {
-          setSource(null);
-          preview.mutate(blob, {
-            onSuccess: (result) => {
-              setTranscript(result.text);
-              setSource("server");
-            },
-          });
-        }
+        finishTake(blob, seconds, peak < SILENCE_RMS, device, heardText);
       };
       rec.start();
       recorder.current = rec;
@@ -336,6 +354,17 @@ export function Recorder({
         )}
         {state.kind === "recorded" && `Recorded ${time(state.seconds)}`}
       </p>
+      {(state.kind === "idle" || state.kind === "error") && (
+        <button
+          type="button"
+          onClick={() => void loadSample()}
+          disabled={busy}
+          className="text-brand-text hover:bg-brand-soft focus-visible:outline-brand-ring -mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium focus-visible:outline-2 disabled:opacity-50"
+        >
+          <SparkIcon size={14} />
+          No microphone? Use a sample recording
+        </button>
+      )}
       {(state.kind === "recording" || state.kind === "recorded") && (
         <p className="text-ink-3 -mt-4 text-xs">Microphone: {state.device}</p>
       )}

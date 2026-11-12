@@ -21,6 +21,7 @@ import type { Corrections, EvalRun, FieldChange } from "@/shared/api/types";
 import { formatDateTime } from "@/shared/lib/format";
 import { useCorrections, useEvalRuns } from "@/features/quality/hooks";
 import { usePageTitle } from "@/shared/lib/use-page-title";
+import { markGuideStep } from "@/features/guide/hooks";
 import { isVitalKind, VITAL_LABELS } from "@/shared/lib/vitals";
 
 const DAYS = 30;
@@ -280,6 +281,7 @@ function CorrectionsSection({ data }: { data: Corrections }) {
         <a
           href={`/api/quality/corrections/export?days=${DAYS}`}
           download="cases_corrections.jsonl"
+          onClick={() => markGuideStep("eval-exported")}
           className={buttonClass("secondary")}
         >
           <DownloadIcon size={16} />

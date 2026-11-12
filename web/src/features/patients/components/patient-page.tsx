@@ -14,6 +14,7 @@ import { ActivityIcon, DownloadIcon } from "@/shared/ui/icons";
 import { CardSkeleton, Skeleton, SkeletonStatus, TableSkeleton } from "@/shared/ui/skeleton";
 import { EmptyState, ErrorState, PageHeader, Pill } from "@/shared/ui/states";
 import { useToast } from "@/shared/ui/toast";
+import { markGuideStep } from "@/features/guide/hooks";
 import type { VitalKind } from "@/shared/api/types";
 import { ageFrom, formatDateTime, initials } from "@/shared/lib/format";
 import { patientsApi, useObservations, usePatient, useRules } from "@/features/patients/hooks";
@@ -75,6 +76,7 @@ export function PatientPage() {
     setExportError(null);
     try {
       await patientsApi.downloadFhir(p.id, p.mrn);
+      markGuideStep("fhir-exported");
       toast({
         title: "FHIR bundle downloaded",
         description: `Patient and confirmed observations for MRN ${p.mrn}.`,
@@ -199,7 +201,7 @@ export function PatientPage() {
             </h2>
             <div className="flex flex-wrap items-center gap-3">
               <label className="flex items-center gap-2 text-sm">
-                <span className="text-ink-2">Vital sign</span>
+                <span className="text-ink-2 whitespace-nowrap">Vital sign</span>
                 <Select
                   size="sm"
                   title="Vital sign"
@@ -333,7 +335,7 @@ const WINDOWS = [7, 30, 90, 365];
 function DaysSelect({ value, onChange }: { value: number; onChange: (days: number) => void }) {
   return (
     <label className="flex items-center gap-2 text-sm">
-      <span className="text-ink-2">Period</span>
+      <span className="text-ink-2 whitespace-nowrap">Period</span>
       <Select
         size="sm"
         title="Period"

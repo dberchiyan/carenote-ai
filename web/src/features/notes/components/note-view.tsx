@@ -10,6 +10,7 @@ import { Card } from "@/shared/ui/card";
 import { CardSkeleton, Skeleton, SkeletonStatus } from "@/shared/ui/skeleton";
 import { ErrorState, PageHeader } from "@/shared/ui/states";
 import { useToast } from "@/shared/ui/toast";
+import { markGuideStep } from "@/features/guide/hooks";
 import { formatDateTime } from "@/shared/lib/format";
 import { isProcessing, useNote, useRetry } from "@/features/notes/hooks";
 import { usePageTitle } from "@/shared/lib/use-page-title";
@@ -28,6 +29,7 @@ export function NoteView() {
   useEffect(() => {
     if (previous.current === "in_review" && status === "confirmed") {
       toast({ title: "Note confirmed", description: "Saved to the patient record and audited." });
+      markGuideStep("note-confirmed");
     } else if (previous.current === "in_review" && status === "rejected") {
       toast({
         title: "Note rejected",
