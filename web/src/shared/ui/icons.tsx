@@ -30,6 +30,17 @@ export const MicIcon = (p: IconProps) => (
     <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" />
   </Icon>
 );
+export const PlayIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none" />
+  </Icon>
+);
+export const PauseIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="6" y="5" width="4.5" height="14" rx="1.5" fill="currentColor" stroke="none" />
+    <rect x="13.5" y="5" width="4.5" height="14" rx="1.5" fill="currentColor" stroke="none" />
+  </Icon>
+);
 export const StopIcon = (p: IconProps) => (
   <Icon {...p}>
     <rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" stroke="none" />
@@ -148,6 +159,20 @@ export const ClockIcon = (p: IconProps) => (
   <Icon {...p}>
     <circle cx="12" cy="12" r="8.5" />
     <path d="M12 7.5V12l3 2" />
+  </Icon>
+);
+
+export const ClipboardIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5.5" y="4.5" width="13" height="16" rx="2" />
+    <path d="M9 4.5V3.75A.75.75 0 0 1 9.75 3h4.5a.75.75 0 0 1 .75.75v.75M9 10h6M9 13.5h6M9 17h3.5" />
+  </Icon>
+);
+
+export const PrinterIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 9V4h10v5M7 17H5a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 5 9h14a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 19 17h-2" />
+    <rect x="7" y="14" width="10" height="6" rx="1" />
   </Icon>
 );
 

@@ -70,7 +70,7 @@ export function NewNotePage() {
       <PageHeader
         eyebrow="New note"
         title="Record a note"
-        subtitle="Say the patient's name, the values and anything else. You will review the draft before anything is saved."
+        subtitle="Say the patient's name and the values. You review the draft before anything is saved."
       />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <Card className="p-2">
@@ -118,7 +118,7 @@ export function NewNotePage() {
             id="input-panel"
             role="tabpanel"
             aria-labelledby={`tab-${mode}`}
-            className="p-6 sm:p-8"
+            className="p-5 sm:p-6"
           >
             {mode === "record" && (
               <Recorder

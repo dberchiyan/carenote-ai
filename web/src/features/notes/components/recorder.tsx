@@ -14,13 +14,20 @@ import { useTranscribePreview } from "@/features/notes/hooks";
 import { ApiError } from "@/shared/api/errors";
 import { Button } from "@/shared/ui/button";
 import { Select, Textarea } from "@/shared/ui/field";
-import { CheckIcon, MicIcon, SparkIcon, StopIcon } from "@/shared/ui/icons";
+import {
+  CheckIcon,
+  LockIcon,
+  MicIcon,
+  PauseIcon,
+  PlayIcon,
+  SparkIcon,
+  StopIcon,
+} from "@/shared/ui/icons";
 
 const MAX_SECONDS = 120;
-// Relative bar heights; the live input level scales them, so the nurse sees the mic hears her.
-const BARS = [
-  0.3, 0.55, 0.8, 0.45, 0.95, 0.6, 0.35, 0.75, 1, 0.5, 0.7, 0.85, 0.4, 0.6, 0.8, 0.45, 0.55, 0.3,
-];
+// Relative bar heights, mirrored around the centre; the live input level scales them.
+const HALF = [0.25, 0.4, 0.3, 0.55, 0.45, 0.7, 0.6, 0.85, 0.75, 1, 0.9, 0.95, 0.8, 1];
+const METER = [...HALF, ...HALF.slice().reverse()];
 // Loudest frame RMS below this means the microphone delivered (near) silence. Speech is ~0.05+;
 // a browser without OS microphone permission delivers exact zeros.
 export const SILENCE_RMS = 0.003;
@@ -283,140 +290,194 @@ export function Recorder({
   }
 
   const recording = state.kind === "recording";
+  const recorded = state.kind === "recorded";
+  const progress = recording ? state.seconds / MAX_SECONDS : 0;
+
   return (
-    <div className="flex flex-col items-center gap-6 py-6">
-      <div className="relative flex size-44 items-center justify-center">
+    <div className="flex flex-col items-center gap-3">
+      {/* The stage: backdrop, time ring, level halo and the one button. */}
+      <div className="relative flex size-48 items-center justify-center sm:size-52">
+        <span
+          aria-hidden="true"
+          className={`absolute inset-0 rounded-full transition-colors duration-500 ${
+            recording
+              ? "bg-[radial-gradient(closest-side,rgb(239_68_68/0.14),transparent)]"
+              : "bg-[radial-gradient(closest-side,var(--brand-soft),transparent)]"
+          }`}
+        />
         {recording && (
           <>
             <span
               aria-hidden="true"
-              className="animate-pulse-ring absolute inset-4 rounded-full bg-red-500/30"
+              className="animate-pulse-ring absolute inset-7 rounded-full bg-red-500/25"
             />
             <span
               aria-hidden="true"
-              className="animate-pulse-ring absolute inset-4 rounded-full bg-red-500/20 [animation-delay:600ms]"
+              className="animate-pulse-ring absolute inset-7 rounded-full bg-red-500/15 [animation-delay:600ms]"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute inset-6 rounded-full bg-red-500/15 transition-transform duration-75 motion-reduce:hidden"
+              style={{ transform: `scale(${1 + level * 0.35})` }}
             />
           </>
         )}
-        {!recording && (
-          <span
-            aria-hidden="true"
-            className="from-brand-soft absolute inset-0 rounded-full bg-gradient-to-b to-transparent"
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 100 100"
+          className={`absolute inset-1.5 -rotate-90 transition-opacity duration-300 ${
+            recording ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <circle cx="50" cy="50" r="47" className="stroke-line" strokeWidth="1.5" fill="none" />
+          <circle
+            cx="50"
+            cy="50"
+            r="47"
+            className="stroke-red-500 transition-[stroke-dashoffset] duration-1000 ease-linear"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+            strokeDasharray={2 * Math.PI * 47}
+            strokeDashoffset={2 * Math.PI * 47 * (1 - progress)}
           />
-        )}
+        </svg>
         {!recording ? (
           <button
             type="button"
             onClick={start}
             disabled={busy}
-            className="ring-surface focus-visible:outline-brand-ring relative flex size-32 flex-col items-center justify-center gap-1 rounded-full bg-gradient-to-b from-teal-600 to-teal-800 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_20px_40px_-12px_rgb(13_148_136/0.55)] ring-8 transition-transform hover:scale-[1.03] focus-visible:outline-4 focus-visible:outline-offset-4 disabled:opacity-50 motion-reduce:hover:scale-100"
+            className="ring-surface focus-visible:outline-brand-ring relative flex size-28 flex-col items-center justify-center gap-1 rounded-full bg-gradient-to-b from-teal-600 to-teal-800 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_20px_40px_-12px_rgb(13_148_136/0.55)] ring-8 transition-transform hover:scale-[1.03] focus-visible:outline-4 focus-visible:outline-offset-4 disabled:opacity-50 motion-reduce:hover:scale-100"
           >
-            <MicIcon size={34} strokeWidth={1.6} />
-            <span className="text-sm font-semibold">
-              {state.kind === "recorded" ? "Record again" : "Record"}
-            </span>
+            <MicIcon size={30} strokeWidth={1.6} />
+            <span className="text-sm font-semibold">{recorded ? "Record again" : "Record"}</span>
           </button>
         ) : (
           <button
             type="button"
             onClick={() => recorder.current?.stop()}
-            className="ring-surface relative flex size-32 flex-col items-center justify-center gap-1 rounded-full bg-gradient-to-b from-red-600 to-red-800 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_20px_40px_-12px_rgb(220_38_38/0.55)] ring-8 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-red-600"
+            className="ring-surface relative flex size-28 flex-col items-center justify-center gap-1 rounded-full bg-gradient-to-b from-red-600 to-red-800 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_20px_40px_-12px_rgb(220_38_38/0.55)] ring-8 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-red-600"
           >
-            <StopIcon size={30} />
+            <StopIcon size={26} />
             <span className="text-sm font-semibold">Stop</span>
           </button>
         )}
       </div>
 
-      <div aria-hidden="true" className="flex h-8 items-center gap-[4px]">
-        {BARS.map((h, i) => (
+      {/* Symmetric level meter: the nurse sees the microphone hears her. */}
+      <div aria-hidden="true" className="-mt-3 flex h-8 items-center gap-[3px]">
+        {METER.map((h, i) => (
           <span
             key={i}
-            className={`w-[3px] rounded-full transition-[height] duration-75 ${
-              recording ? "bg-red-500/80" : "bg-line-strong"
+            className={`w-[3px] rounded-full transition-[height,background-color] duration-75 ${
+              recording ? "bg-red-500/80" : recorded ? "bg-brand/40" : "bg-line-strong"
             }`}
-            style={{ height: recording ? 4 + h * level * 28 : 4 }}
+            style={{ height: recording ? 4 + h * level * 28 : recorded ? 4 + h * 10 : 4 }}
           />
         ))}
       </div>
 
-      <p aria-live="polite" className="text-ink min-h-7 font-mono text-lg tabular-nums">
+      <div aria-live="polite" className="-mt-2 flex min-h-7 flex-col items-center gap-0.5">
         {state.kind === "idle" && (
-          <span className="text-ink-3 font-sans text-sm">
-            Tap to start. Up to {MAX_SECONDS / 60} minutes.
-          </span>
+          <p className="text-ink-3 text-sm">Tap to start. Up to {MAX_SECONDS / 60} minutes.</p>
         )}
         {recording && (
-          <>
-            <span className="sr-only">Recording, </span>
-            {time(state.seconds)} <span className="text-ink-3">/ {time(MAX_SECONDS)}</span>
-          </>
-        )}
-        {state.kind === "recorded" && `Recorded ${time(state.seconds)}`}
-      </p>
-      {(state.kind === "idle" || state.kind === "error") && (
-        <button
-          type="button"
-          onClick={() => void loadSample()}
-          disabled={busy}
-          className="text-brand-text hover:bg-brand-soft focus-visible:outline-brand-ring -mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium focus-visible:outline-2 disabled:opacity-50"
-        >
-          <SparkIcon size={14} />
-          No microphone? Use a sample recording
-        </button>
-      )}
-      {(state.kind === "recording" || state.kind === "recorded") && (
-        <p className="text-ink-3 -mt-4 text-xs">Microphone: {state.device}</p>
-      )}
-      {recording && heard && !speechError && (
-        <p
-          aria-live="polite"
-          aria-label="Live transcript"
-          className="text-ink-2 min-h-12 w-full max-w-lg text-center text-[15px] leading-relaxed"
-        >
-          {transcript || (
-            <span className="text-ink-3">
-              Listening… say the patient&apos;s name and the values.
+          <p className="text-ink flex items-center gap-3 font-mono text-2xl font-medium tabular-nums">
+            <span className="text-bad inline-flex items-center gap-1.5 font-sans text-xs font-bold tracking-widest uppercase">
+              <span className="size-2 animate-pulse rounded-full bg-red-500 motion-reduce:animate-none" />
+              Rec
             </span>
-          )}
+            <span>
+              <span className="sr-only">Recording, </span>
+              {time(state.seconds)}
+            </span>
+            <span className="text-ink-3 text-sm">{time(MAX_SECONDS - state.seconds)} left</span>
+          </p>
+        )}
+        {recorded && (
+          <p className="text-ink font-mono text-lg tabular-nums">Recorded {time(state.seconds)}</p>
+        )}
+        {(recording || recorded) && (
+          <p className="text-ink-3 text-xs">Microphone: {state.device}</p>
+        )}
+      </div>
+
+      {recording && heard && !speechError && (
+        <div className="bg-surface-2 ring-line w-full max-w-lg rounded-2xl px-4 py-3 ring-1 ring-inset">
+          <p className="eyebrow text-brand-text mb-1.5 flex items-center gap-1.5">
+            <CheckIcon size={12} />
+            Live transcript · on this device
+          </p>
+          <p
+            aria-live="polite"
+            aria-label="Live transcript"
+            className="text-ink min-h-12 text-[15px] leading-relaxed"
+          >
+            {transcript || (
+              <span className="text-ink-3">
+                Listening… say the patient&apos;s name and the values.
+              </span>
+            )}
+          </p>
+        </div>
+      )}
+
+      {state.kind === "idle" && (
+        <p className="text-ink-2 max-w-xl text-center text-sm leading-relaxed">
+          <span className="eyebrow mr-1.5">Say something like</span>“Mrs. Anna Keller, blood
+          pressure 150 over 90, pulse 88, temp 37.9, headache, gave 500 mg paracetamol.”
         </p>
       )}
+
       {speechError && (
-        <p
-          role="status"
-          className="w-full max-w-md text-center text-xs text-amber-800 dark:text-amber-200"
-        >
+        <p role="status" className="text-warn-fg w-full max-w-md text-center text-xs">
           Live transcript stopped: {speechError}. You can type what you said after recording.
         </p>
       )}
-      {!speechError && !(state.kind === "recorded" && preview.isPending) && (
-        <p
-          role="status"
-          className="text-ink-3 flex w-full max-w-md items-center justify-center gap-1.5 text-center text-xs leading-relaxed"
-        >
-          {speech === "available" ? (
-            <>
-              <CheckIcon size={13} className="text-brand-text" />
-              Live transcript on this device. Nothing you say leaves this computer before review.
-            </>
-          ) : speech === "downloadable" || speech === "downloading" ? (
-            <span>
-              Live transcript needs the on-device speech pack.{" "}
-              <button
-                type="button"
-                onClick={() => void installSpeechPack()}
-                disabled={speech === "downloading"}
-                className="text-brand-text font-semibold underline-offset-2 hover:underline disabled:opacity-60"
-              >
-                {speech === "downloading" ? "Downloading…" : "Download it"}
-              </button>{" "}
-              (stays on this computer).
-            </span>
-          ) : (
-            "No live transcript in this browser (it needs Chrome's on-device speech recognition). You can type what you said after recording."
-          )}
-        </p>
-      )}
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+        {(state.kind === "idle" || state.kind === "error") && (
+          <button
+            type="button"
+            onClick={() => void loadSample()}
+            disabled={busy}
+            className="text-brand-text hover:bg-brand-soft focus-visible:outline-brand-ring inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium focus-visible:outline-2 disabled:opacity-50"
+          >
+            <SparkIcon size={14} />
+            No microphone? Use a sample recording
+          </button>
+        )}
+        {!speechError && !recorded && (
+          <p
+            role="status"
+            className="bg-surface-2 text-ink-2 ring-line inline-flex max-w-md items-center gap-1.5 rounded-full px-3 py-1.5 text-center text-xs ring-1 ring-inset"
+          >
+            {speech === "available" ? (
+              <>
+                <CheckIcon size={13} className="text-brand-text" />
+                Live transcript on this device. Nothing you say leaves this computer before review.
+              </>
+            ) : speech === "downloadable" || speech === "downloading" ? (
+              <span>
+                Live transcript needs the on-device speech pack.{" "}
+                <button
+                  type="button"
+                  onClick={() => void installSpeechPack()}
+                  disabled={speech === "downloading"}
+                  className="text-brand-text font-semibold underline-offset-2 hover:underline disabled:opacity-60"
+                >
+                  {speech === "downloading" ? "Downloading…" : "Download it"}
+                </button>{" "}
+                (stays on this computer).
+              </span>
+            ) : (
+              <>
+                <LockIcon size={13} className="text-ink-3 shrink-0" />
+                No live transcript in this browser. You can type what you said after recording.
+              </>
+            )}
+          </p>
+        )}
+      </div>
       {!recording && microphones.length > 1 && (
         <label className="text-ink-2 flex w-full max-w-md items-center gap-2 text-sm">
           <span className="shrink-0">Microphone</span>
@@ -431,17 +492,14 @@ export function Recorder({
         </label>
       )}
       {permission === "denied" && state.kind !== "error" && (
-        <p
-          role="alert"
-          className="w-full max-w-md text-center text-sm text-red-800 dark:text-red-200"
-        >
+        <p role="alert" className="text-bad-fg w-full max-w-md text-center text-sm">
           {BLOCKED}
         </p>
       )}
-      {state.kind === "recorded" && state.silent && (
+      {recorded && state.silent && (
         <div
           role="alert"
-          className="w-full max-w-md rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:border-amber-500/40 dark:bg-amber-950/40 dark:text-amber-50"
+          className="border-warn-line bg-warn-soft text-warn-fg w-full max-w-md rounded-xl border px-4 py-3 text-sm"
         >
           <p className="font-semibold">No sound was picked up.</p>
           <p className="mt-1 leading-relaxed">
@@ -450,12 +508,10 @@ export function Recorder({
           </p>
         </div>
       )}
-      {state.kind === "recorded" && (
-        <div className="flex w-full flex-col items-center gap-4">
-          <audio controls src={state.url} className="w-full max-w-md">
-            <track kind="captions" />
-          </audio>
-          <label className="text-ink flex w-full max-w-md flex-col gap-2 text-sm font-medium">
+      {recorded && (
+        <div className="card animate-rise w-full max-w-xl p-4 sm:p-5">
+          <Player src={state.url} seconds={state.seconds} />
+          <label className="text-ink mt-5 flex flex-col gap-2 text-sm font-medium">
             Transcript
             <span className="text-ink-3 -mt-1 text-xs font-normal" aria-live="polite">
               {preview.isPending
@@ -476,10 +532,11 @@ export function Recorder({
               rows={3}
               disabled={preview.isPending}
               placeholder={preview.isPending ? "" : "What you said, in your own words"}
-              className="p-3 text-[15px] font-normal"
+              className={`p-3 text-[15px] font-normal ${preview.isPending ? "skeleton" : ""}`}
             />
           </label>
           <Button
+            className="mt-4 w-full"
             onClick={() =>
               onSubmit({
                 blob: state.blob,
@@ -488,6 +545,7 @@ export function Recorder({
             }
             disabled={busy || preview.isPending}
           >
+            <SparkIcon size={16} />
             {busy
               ? "Uploading…"
               : transcript.trim().length >= 3
@@ -497,13 +555,71 @@ export function Recorder({
         </div>
       )}
       {state.kind === "error" && (
-        <p
-          role="alert"
-          className="w-full max-w-sm text-center text-sm text-red-800 dark:text-red-200"
-        >
+        <p role="alert" className="text-bad-fg w-full max-w-sm text-center text-sm">
           {state.message}
         </p>
       )}
+    </div>
+  );
+}
+
+/** Play back the take: one button, a thin progress bar and the time, instead of the browser's
+ *  own control. The audio element stays in the DOM for tests and assistive tech. */
+function Player({ src, seconds }: { src: string; seconds: number }) {
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [known, setKnown] = useState(0);
+  // Chrome reports no duration for a MediaRecorder WebM; the timer's count is close enough.
+  const duration = known > 0 && Number.isFinite(known) ? known : seconds;
+  const format = (s: number) =>
+    `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  const toggle = () => {
+    const el = audio.current;
+    if (!el) return;
+    if (el.paused) void el.play();
+    else el.pause();
+  };
+  return (
+    <div className="flex items-center gap-3">
+      <audio
+        ref={audio}
+        src={src}
+        preload="metadata"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPosition(0)}
+        onTimeUpdate={(e) => setPosition(e.currentTarget.currentTime)}
+        onLoadedMetadata={(e) => setKnown(e.currentTarget.duration)}
+        onDurationChange={(e) => setKnown(e.currentTarget.duration)}
+      >
+        <track kind="captions" />
+      </audio>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pause" : "Play"}
+        className="bg-brand text-brand-fg hover:bg-brand-strong focus-visible:outline-brand-ring flex size-10 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+      >
+        {playing ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
+      </button>
+      <input
+        type="range"
+        aria-label="Position"
+        min={0}
+        max={duration || 1}
+        step={0.1}
+        value={Math.min(position, duration || 1)}
+        onChange={(e) => {
+          const t = Number(e.target.value);
+          setPosition(t);
+          if (audio.current) audio.current.currentTime = t;
+        }}
+        className="accent-brand h-1.5 min-w-0 flex-1 cursor-pointer"
+      />
+      <span className="text-ink-3 shrink-0 font-mono text-xs tabular-nums">
+        {format(position)} / {format(duration)}
+      </span>
     </div>
   );
 }
