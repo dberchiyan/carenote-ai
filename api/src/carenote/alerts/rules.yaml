@@ -1,0 +1,17 @@
+# Threshold alert rules for confirmed and draft vitals. Rules are data, not code.
+# Demo values loosely inspired by adult early-warning scores. NOT clinically validated.
+#
+# For each vital kind (strict comparisons, all keys optional):
+#   critical_below: value <  this -> critical
+#   warning_below:  value <  this -> warning
+#   warning_above:  value >  this -> warning
+#   critical_above: value >  this -> critical
+version: 1
+rules:
+  systolic_bp:      { critical_below: 90,  warning_below: 100, warning_above: 140, critical_above: 180 }
+  diastolic_bp:     { critical_below: 50,  warning_below: 60,  warning_above: 90,  critical_above: 110 }
+  heart_rate:       { critical_below: 40,  warning_below: 50,  warning_above: 100, critical_above: 130 }
+  respiratory_rate: { critical_below: 8,   warning_below: 12,  warning_above: 20,  critical_above: 25 }
+  temperature:      { critical_below: 35.0, warning_below: 36.0, warning_above: 38.0, critical_above: 39.5 }
+  spo2:             { critical_below: 90,  warning_below: 94 }
+  blood_glucose:    { critical_below: 54,  warning_below: 70,  warning_above: 180, critical_above: 300 }
