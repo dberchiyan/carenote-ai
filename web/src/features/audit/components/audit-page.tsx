@@ -60,14 +60,11 @@ function actionOption(action: string): SelectOption {
 
 /** Tone per action family, with the action name itself always visible. */
 function actionTone(action: string): string {
-  if (action.endsWith(".confirm"))
-    return "bg-emerald-50 text-emerald-900 ring-emerald-600/25 dark:bg-emerald-950/60 dark:text-emerald-100 dark:ring-emerald-400/25";
-  if (action.endsWith(".reject"))
-    return "bg-red-50 text-red-900 ring-red-600/25 dark:bg-red-950/60 dark:text-red-100 dark:ring-red-400/25";
+  if (action.endsWith(".confirm")) return "bg-ok-soft text-ok-fg ring-ok-line";
+  if (action.endsWith(".reject")) return "bg-bad-soft text-bad-fg ring-bad-line";
   if (action.startsWith("fhir.") || action.endsWith("_export"))
     return "bg-brand-soft text-brand-text ring-brand/25";
-  if (action.startsWith("note."))
-    return "bg-sky-50 text-sky-900 ring-sky-600/25 dark:bg-sky-950/60 dark:text-sky-100 dark:ring-sky-400/25";
+  if (action.startsWith("note.")) return "bg-info-soft text-info-fg ring-info-line";
   return "bg-surface-3 text-ink-2 ring-line";
 }
 
@@ -110,7 +107,7 @@ function ChangeView({ event }: { event: AuditEvent }) {
         </span>
         {both && (
           <span className="flex items-center gap-1.5">
-            <span aria-hidden="true" className="size-2 rounded-full bg-amber-500" /> changed
+            <span aria-hidden="true" className="bg-warn size-2 rounded-full" /> changed
           </span>
         )}
       </div>
@@ -135,14 +132,14 @@ function ChangeView({ event }: { event: AuditEvent }) {
             role="row"
             className={`grid items-start gap-4 px-4 py-2 text-xs ${
               both ? "grid-cols-[minmax(7rem,12rem)_1fr_1fr]" : "grid-cols-[minmax(7rem,12rem)_1fr]"
-            } ${r.changed ? "bg-amber-50/70 dark:bg-amber-950/25" : ""}`}
+            } ${r.changed ? "bg-warn-soft/60" : ""}`}
           >
             <span
               role="cell"
               className="text-ink flex items-center gap-2 font-mono font-medium break-all"
             >
               {r.changed && (
-                <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-amber-500" />
+                <span aria-hidden="true" className="bg-warn size-2 shrink-0 rounded-full" />
               )}
               {r.key}
               {r.changed && <span className="sr-only">(changed)</span>}
@@ -151,7 +148,7 @@ function ChangeView({ event }: { event: AuditEvent }) {
               <pre
                 role="cell"
                 className={`font-mono break-words whitespace-pre-wrap ${
-                  r.changed ? "text-ink-2 line-through decoration-red-500/60" : "text-ink-2"
+                  r.changed ? "text-ink-2 decoration-bad/60 line-through" : "text-ink-2"
                 }`}
               >
                 {show(r.was)}

@@ -47,7 +47,7 @@ export function Field({
       <label htmlFor={id} className="text-ink-2 text-xs font-medium">
         {label}
         {required && (
-          <span aria-hidden="true" className="text-red-600">
+          <span aria-hidden="true" className="text-bad">
             {" "}
             *
           </span>
@@ -55,7 +55,7 @@ export function Field({
       </label>
       {children({ id, describedBy: describedBy || undefined, invalid: !!error })}
       {error ? (
-        <p id={errorId} role="alert" className="text-xs text-red-700 dark:text-red-300">
+        <p id={errorId} role="alert" className="text-bad text-xs">
           {error}
         </p>
       ) : hint ? (

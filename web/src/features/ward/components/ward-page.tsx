@@ -153,7 +153,7 @@ export function WardPage() {
                   onClick={() => setFlaggedOnly(!flaggedOnly)}
                   className={`flex h-10 shrink-0 items-center gap-1.5 rounded-lg px-3 text-sm font-medium ring-1 transition-colors ring-inset focus-visible:outline-2 sm:h-9 ${
                     flaggedOnly
-                      ? "bg-amber-50 text-amber-900 ring-amber-400/60 dark:bg-amber-950/50 dark:text-amber-100 dark:ring-amber-500/40"
+                      ? "bg-warn-soft text-warn-fg ring-warn-line"
                       : "bg-surface text-ink-2 ring-line-strong hover:bg-surface-2"
                   } focus-visible:outline-brand-ring`}
                 >
@@ -221,7 +221,7 @@ export function WardPage() {
               {me.data?.role === "charge_nurse" ? "Recent notes on the ward" : "Your recent notes"}
             </h2>
           </div>
-          <Card className="p-2 2xl:sticky 2xl:top-6">
+          <Card className="p-2 2xl:sticky 2xl:top-[calc(var(--topbar)+1.5rem)]">
             {recent.length > 0 ? (
               <ul className="grid gap-x-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-1">
                 {recent.slice(0, 4).map((n) => (

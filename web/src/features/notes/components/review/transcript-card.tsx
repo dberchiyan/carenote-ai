@@ -27,7 +27,7 @@ export function TranscriptCard({
 
   return (
     <section aria-labelledby="transcript-heading">
-      <Card className="overflow-hidden lg:sticky lg:top-6">
+      <Card className="overflow-hidden lg:sticky lg:top-[calc(var(--topbar)+1.5rem)]">
         <div className="border-line bg-surface-2 flex items-center justify-between border-b px-6 py-3">
           <h2 id="transcript-heading" className="eyebrow">
             Transcript
@@ -41,7 +41,7 @@ export function TranscriptCard({
           {note.transcription_model === "fake-transcriber" && (
             <p
               role="status"
-              className="mb-4 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:bg-amber-950/40 dark:text-amber-200"
+              className="bg-warn-soft text-warn-fg mb-4 rounded-lg px-3 py-2 text-sm"
             >
               <strong>Sample transcript.</strong> No transcription provider is configured, so the
               server substituted a demo sentence instead of your recording. Use the live transcript
@@ -57,7 +57,7 @@ export function TranscriptCard({
                   onMouseLeave={() => onHover(null)}
                   className={`rounded-md [box-decoration-break:clone] px-1 py-0.5 text-inherit transition-colors duration-150 ${
                     activeText === s.text.toLowerCase()
-                      ? "bg-teal-200 ring-2 ring-teal-600 dark:bg-teal-800 dark:ring-teal-400"
+                      ? "bg-brand/25 ring-brand-ring ring-2"
                       : "bg-brand-soft ring-brand/20 ring-1"
                   }`}
                 >

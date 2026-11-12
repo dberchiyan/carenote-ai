@@ -24,9 +24,7 @@ export function StatCard({
         <span className="text-ink-2 text-sm font-medium">{label}</span>
         <span
           className={`flex size-8 items-center justify-center rounded-lg ${
-            tone === "attention"
-              ? "bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300"
-              : "bg-brand-soft text-brand-text"
+            tone === "attention" ? "bg-warn-soft text-warn" : "bg-brand-soft text-brand-text"
           }`}
         >
           {icon}

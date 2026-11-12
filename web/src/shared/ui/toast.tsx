@@ -56,10 +56,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <span
               className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full ${
                 t.tone === "danger"
-                  ? "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300"
+                  ? "bg-bad-soft text-bad"
                   : t.tone === "info"
-                    ? "bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300"
-                    : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
+                    ? "bg-info-soft text-info"
+                    : "bg-ok-soft text-ok"
               }`}
             >
               {t.tone === "danger" ? <AlertIcon size={14} /> : <CheckIcon size={14} />}

@@ -65,9 +65,9 @@ export function DraftReview({ note }: { note: Note }) {
         {attention.length > 0 && (
           <section
             aria-labelledby="uncertain-heading"
-            className="shadow-card flex gap-4 rounded-2xl border border-amber-300 bg-amber-50 p-5 text-amber-950 dark:border-amber-500/40 dark:bg-amber-950/40 dark:text-amber-50"
+            className="shadow-card border-warn-line bg-warn-soft text-warn-fg flex gap-4 rounded-2xl border p-5"
           >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300">
+            <span className="bg-surface text-warn ring-warn-line flex size-9 shrink-0 items-center justify-center rounded-lg ring-1">
               <AlertIcon size={17} />
             </span>
             <div className="min-w-0">

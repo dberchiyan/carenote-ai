@@ -186,7 +186,7 @@ export function LoginPage() {
 
           <div
             role="note"
-            className="mt-8 rounded-xl border border-amber-300/70 bg-amber-50 px-4 py-3 text-[13px] leading-relaxed text-amber-950 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-100"
+            className="border-warn-line bg-warn-soft text-warn-fg mt-8 rounded-xl border px-4 py-3 text-[13px] leading-relaxed"
           >
             <strong className="font-semibold">Demo application — synthetic data only.</strong> Never
             enter real patient information. Not a medical device; no clinical advice.

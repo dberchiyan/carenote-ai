@@ -33,22 +33,22 @@ export function OutcomeBanner({ note }: { note: Note }) {
     return (
       <div
         role="status"
-        className="shadow-card flex flex-wrap items-center gap-4 rounded-2xl border border-emerald-300 bg-emerald-50 p-5 text-emerald-950 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-50"
+        className="shadow-card border-ok-line bg-ok-soft text-ok-fg flex flex-wrap items-center gap-4 rounded-2xl border p-5"
       >
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
+        <span className="bg-ok-soft text-ok ring-ok-line flex size-10 shrink-0 items-center justify-center rounded-full ring-1">
           <CheckIcon size={20} />
         </span>
         <p className="flex-1 font-semibold">
           <span aria-hidden="true">✓ </span>Confirmed{" "}
           {note.confirmed_at ? formatDateTime(note.confirmed_at) : ""}
-          <span className="block text-sm font-normal text-emerald-900 dark:text-emerald-200">
+          <span className="text-ok-fg block text-sm font-normal">
             Saved to the patient record and the audit log.
           </span>
         </p>
         {note.patient_id && (
           <Link
             href={`/patients/${note.patient_id}`}
-            className="inline-flex items-center gap-1 rounded-xl bg-white px-3.5 py-2 text-sm font-semibold text-emerald-900 ring-1 ring-emerald-300 hover:bg-emerald-100 focus-visible:outline-2 focus-visible:outline-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-50 dark:ring-emerald-500/40"
+            className="bg-surface text-ok-fg ring-ok-line hover:bg-ok-soft focus-visible:outline-ok inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold ring-1 focus-visible:outline-2"
           >
             Open patient record
             <ChevronRightIcon size={15} />

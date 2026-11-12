@@ -32,7 +32,7 @@ export function PipelineStatus({ note }: { note: Note }) {
               aria-current={current ? "step" : undefined}
               className={`inline-flex items-center gap-2 rounded-xl px-3 py-1.5 font-medium ${
                 failed
-                  ? "bg-red-50 text-red-900 dark:bg-red-950/60 dark:text-red-100"
+                  ? "bg-bad-soft text-bad-fg"
                   : done
                     ? "text-ink"
                     : current
@@ -44,7 +44,7 @@ export function PipelineStatus({ note }: { note: Note }) {
                 aria-hidden="true"
                 className={`flex size-5 items-center justify-center rounded-full text-[11px] font-bold ${
                   failed
-                    ? "bg-red-600 text-white"
+                    ? "bg-bad-soft text-bad ring-bad-line ring-1"
                     : done
                       ? "bg-brand text-brand-fg"
                       : "ring-line-strong ring-1 ring-inset"

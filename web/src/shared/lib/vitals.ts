@@ -42,20 +42,17 @@ export const FLAG_META: Record<Flag, { label: string; icon: string; className: s
   normal: {
     label: "Normal",
     icon: "✓",
-    className:
-      "bg-emerald-50 text-emerald-900 ring-emerald-600/25 dark:bg-emerald-950/60 dark:text-emerald-100 dark:ring-emerald-400/25",
+    className: "bg-ok-soft text-ok-fg ring-ok-line",
   },
   warning: {
     label: "Warning",
     icon: "▲",
-    className:
-      "bg-amber-50 text-amber-950 ring-amber-600/35 dark:bg-amber-950/60 dark:text-amber-100 dark:ring-amber-400/30",
+    className: "bg-warn-soft text-warn-fg ring-warn-line",
   },
   critical: {
     label: "Critical",
     icon: "⬣",
-    className:
-      "bg-red-50 text-red-900 ring-red-600/30 dark:bg-red-950/60 dark:text-red-100 dark:ring-red-400/30",
+    className: "bg-bad-soft text-bad-fg ring-bad-line",
   },
 };
 

@@ -237,7 +237,7 @@ function EvalSection({ runs }: { runs: EvalRun[] }) {
                   <ul className="mt-1.5 flex flex-col gap-0.5">
                     {(c.error ? [c.error] : c.diffs).map((d) => (
                       <li key={d} className="text-ink-2 font-mono text-xs">
-                        <span aria-hidden="true" className="text-red-600 dark:text-red-400">
+                        <span aria-hidden="true" className="text-bad">
                           ✕{" "}
                         </span>
                         {d}

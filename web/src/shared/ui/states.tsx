@@ -19,7 +19,7 @@ export function ErrorState({ error }: { error: unknown }) {
   return (
     <div
       role="alert"
-      className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900 dark:border-red-900/60 dark:bg-red-950/50 dark:text-red-100"
+      className="border-bad-line bg-bad-soft text-bad-fg flex items-start gap-3 rounded-xl border px-4 py-3 text-sm"
     >
       <AlertIcon className="mt-0.5 shrink-0" size={16} />
       <span>{message}</span>
@@ -93,11 +93,9 @@ export function Pill({
   const tones = {
     neutral: "bg-surface-3 text-ink-2 ring-line-strong/60",
     brand: "bg-brand-soft text-brand-text ring-brand/20",
-    info: "bg-sky-50 text-sky-900 ring-sky-600/20 dark:bg-sky-950/60 dark:text-sky-100 dark:ring-sky-400/20",
-    danger:
-      "bg-red-50 text-red-900 ring-red-600/20 dark:bg-red-950/60 dark:text-red-100 dark:ring-red-400/20",
-    success:
-      "bg-emerald-50 text-emerald-900 ring-emerald-600/20 dark:bg-emerald-950/60 dark:text-emerald-100 dark:ring-emerald-400/20",
+    info: "bg-info-soft text-info-fg ring-info-line",
+    danger: "bg-bad-soft text-bad-fg ring-bad-line",
+    success: "bg-ok-soft text-ok-fg ring-ok-line",
   };
   return (
     <span

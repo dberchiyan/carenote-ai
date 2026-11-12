@@ -99,8 +99,8 @@ export function VitalsCard({
                       key={h.reason}
                       className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
                         h.reason === "not_in_transcript"
-                          ? "bg-red-50 text-red-800 ring-red-200 dark:bg-red-950/50 dark:text-red-200 dark:ring-red-800/60"
-                          : "bg-amber-50 text-amber-900 ring-amber-200 dark:bg-amber-950/50 dark:text-amber-100 dark:ring-amber-700/50"
+                          ? "bg-bad-soft text-bad-fg ring-bad-line"
+                          : "bg-warn-soft text-warn-fg ring-warn-line"
                       }`}
                     >
                       {h.reason === "not_in_transcript" ? (

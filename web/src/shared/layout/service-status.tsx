@@ -29,9 +29,9 @@ const LABELS: Record<Status, string> = {
 export function StatusBadge({ status }: { status: Status }) {
   const tone =
     status === "ok"
-      ? "bg-emerald-50 text-emerald-900 ring-emerald-600/25 dark:bg-emerald-950/60 dark:text-emerald-100 dark:ring-emerald-400/25"
+      ? "bg-ok-soft text-ok-fg ring-ok-line"
       : status === "unavailable"
-        ? "bg-red-50 text-red-900 ring-red-600/25 dark:bg-red-950/60 dark:text-red-100 dark:ring-red-400/25"
+        ? "bg-bad-soft text-bad-fg ring-bad-line"
         : "bg-surface-3 text-ink-2 ring-line-strong";
   const icon = status === "ok" ? "●" : status === "unavailable" ? "▲" : "○";
   return (
